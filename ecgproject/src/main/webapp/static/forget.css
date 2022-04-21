@@ -1,0 +1,25 @@
+* {
+    text-decoration: none;
+}
+
+body {
+    margin: 0;
+    /* 100%窗口高度 */
+    width: 100vw;
+    height: 100vh;
+    /* 渐变背景 */
+    background: linear-gradient(200deg,#f5e8e7,#84bcdf);
+    /* 弹性布局 水平+垂直居中 */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    place-items: center;
+    overflow: hidden;
+    font-family: sans-serif;
+}
+
+div{
+    text-align:center; /* 文字等内容居中 */
+    width:500px; /* 给个宽度 顶到浏览器的两边就看不出居中效果了 */
+    margin:0 auto; /* 居中 这个是必须的，，其它的属性非必须 */
+}
