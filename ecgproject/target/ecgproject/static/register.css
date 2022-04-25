@@ -101,7 +101,7 @@ input::placeholder {
 }
 
 button {
-    margin-top: 20px;
+    margin-top: 15px;
     background: #1da1f2;
     height: 40px;
     border-radius: 20px;
@@ -119,7 +119,7 @@ button:hover {
     color: #1da1f2;
     font-size: 13px;
     letter-spacing: 0.2px;
-    margin-top: 8px;
+    margin-top: -5px;
 }
 
 #dot {

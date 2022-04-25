@@ -8,8 +8,39 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="5996bf99-f650-4d49-b31c-ff3e659559ab" name="Default Changelist" comment="" />
+    <list default="true" id="5996bf99-f650-4d49-b31c-ff3e659559ab" name="Default Changelist" comment="写了初步的医生列表">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ecgproject-mybatis-generator/src/main/resources/generatorConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ecgproject-mybatis-generator/src/main/resources/generatorConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/af97a9eb-09f3-4a31-968f-b7427a1a85b2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/af97a9eb-09f3-4a31-968f-b7427a1a85b2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/workbench/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/workbench/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/workbench/patient/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/workbench/patient/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/static/register.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/static/register.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ecgproject/WEB-INF/pages/settings/qx/user/register.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ecgproject/WEB-INF/pages/settings/qx/user/register.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ecgproject/WEB-INF/pages/workbench/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ecgproject/WEB-INF/pages/workbench/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ecgproject/WEB-INF/pages/workbench/patient/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ecgproject/WEB-INF/pages/workbench/patient/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ecgproject/static/register.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/ecgproject/static/register.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,12 +51,15 @@
       <list>
         <option value="HTML File" />
         <option value="jsf" />
-        <option value="Jsp File" />
+        <option value="CSS File" />
         <option value="Interface" />
         <option value="Class" />
-        <option value="CSS File" />
+        <option value="Jsp File" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -42,6 +76,9 @@
     </option>
   </component>
   <component name="ProjectId" id="27HOaLoBhfpUBXxM9jTbKkb4Y6x" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
@@ -49,6 +86,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="D:/24.毕业论文/参考文献/CRM项目（SSM框架版）/项目源码/day10-分页查询和删除/crm-project/crm-project/crm/src/main/webapp/WEB-INF/pages/workbench/activity/index.jsp" />
@@ -192,12 +230,35 @@
       <workItem from="1650437057604" duration="19749000" />
       <workItem from="1650508877735" duration="11873000" />
       <workItem from="1650538774882" duration="5475000" />
-      <workItem from="1650549578492" duration="1129000" />
+      <workItem from="1650549578492" duration="1130000" />
+      <workItem from="1650595777901" duration="4114000" />
+      <workItem from="1650613417141" duration="6999000" />
+      <workItem from="1650695738750" duration="9010000" />
+      <workItem from="1650723804742" duration="3903000" />
+      <workItem from="1650767298274" duration="19362000" />
+      <workItem from="1650871947527" duration="384000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="写了初步的医生列表" />
+    <MESSAGE value="写到预约列表雏形" />
+    <option name="LAST_COMMIT_MESSAGE" value="写到预约列表雏形" />
   </component>
   <component name="WindowStateProjectService">
     <state x="498" y="0" key="#Project_Structure" timestamp="1649904081541">
@@ -208,66 +269,70 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="135" y="0" width="1089" height="824" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1649002952056" />
-    <state x="574" y="117" key="#com.intellij.ide.util.MemberChooser" timestamp="1650541751011">
+    <state x="574" y="117" key="#com.intellij.ide.util.MemberChooser" timestamp="1650789424201">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="574" y="117" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1650541751011" />
+    <state x="574" y="117" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1650789424201" />
     <state x="673" y="381" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1649862330252">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="673" y="381" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1536.824@0.0.1536.824" timestamp="1649862330252" />
-    <state x="496" y="162" width="576" height="500" key="FileChooserDialogImpl" timestamp="1650468282176">
+    <state x="499" y="158" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1650789122153">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="496" y="162" width="576" height="500" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1650468282176" />
-    <state width="1102" height="123" key="GridCell.Tab.0.bottom" timestamp="1650549511514">
+    <state x="499" y="158" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1650789122153" />
+    <state x="496" y="162" width="576" height="500" key="FileChooserDialogImpl" timestamp="1650813016564">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1102" height="123" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1650549511514" />
-    <state width="1102" height="123" key="GridCell.Tab.0.center" timestamp="1650549511511">
+    <state x="496" y="162" width="576" height="500" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1650813016564" />
+    <state width="1493" height="121" key="GridCell.Tab.0.bottom" timestamp="1650813063051">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1102" height="123" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1650549511511" />
-    <state width="1102" height="123" key="GridCell.Tab.0.left" timestamp="1650549511510">
+    <state width="1493" height="121" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1650813063051" />
+    <state width="1493" height="121" key="GridCell.Tab.0.center" timestamp="1650813063049">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1102" height="123" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1650549511510" />
-    <state width="1102" height="123" key="GridCell.Tab.0.right" timestamp="1650549511513">
+    <state width="1493" height="121" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1650813063049" />
+    <state width="1493" height="121" key="GridCell.Tab.0.left" timestamp="1650813063049">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1102" height="123" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1650549511513" />
-    <state width="1102" height="123" key="GridCell.Tab.1.bottom" timestamp="1650549511516">
+    <state width="1493" height="121" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1650813063049" />
+    <state width="1493" height="121" key="GridCell.Tab.0.right" timestamp="1650813063049">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1102" height="123" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1650549511516" />
-    <state width="1102" height="123" key="GridCell.Tab.1.center" timestamp="1650549511515">
+    <state width="1493" height="121" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1650813063049" />
+    <state width="974" height="94" key="GridCell.Tab.1.bottom" timestamp="1650813063033">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1102" height="123" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1650549511515" />
-    <state width="1102" height="123" key="GridCell.Tab.1.left" timestamp="1650549511514">
+    <state width="974" height="94" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1650813063033" />
+    <state width="974" height="94" key="GridCell.Tab.1.center" timestamp="1650813063033">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1102" height="123" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1650549511514" />
-    <state width="1102" height="123" key="GridCell.Tab.1.right" timestamp="1650549511515">
+    <state width="974" height="94" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1650813063033" />
+    <state width="974" height="94" key="GridCell.Tab.1.left" timestamp="1650813063033">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1102" height="123" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1650549511515" />
-    <state width="1102" height="123" key="GridCell.Tab.2.bottom" timestamp="1650549511517">
+    <state width="974" height="94" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1650813063033" />
+    <state width="974" height="94" key="GridCell.Tab.1.right" timestamp="1650813063033">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1102" height="123" key="GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824" timestamp="1650549511517" />
-    <state width="1102" height="123" key="GridCell.Tab.2.center" timestamp="1650549511517">
+    <state width="974" height="94" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1650813063033" />
+    <state width="974" height="94" key="GridCell.Tab.2.bottom" timestamp="1650813063036">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1102" height="123" key="GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824" timestamp="1650549511517" />
-    <state width="1102" height="123" key="GridCell.Tab.2.left" timestamp="1650549511517">
+    <state width="974" height="94" key="GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824" timestamp="1650813063036" />
+    <state width="974" height="94" key="GridCell.Tab.2.center" timestamp="1650813063035">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1102" height="123" key="GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824" timestamp="1650549511517" />
-    <state width="1102" height="123" key="GridCell.Tab.2.right" timestamp="1650549511517">
+    <state width="974" height="94" key="GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824" timestamp="1650813063035" />
+    <state width="974" height="94" key="GridCell.Tab.2.left" timestamp="1650813063034">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1102" height="123" key="GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824" timestamp="1650549511517" />
+    <state width="974" height="94" key="GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824" timestamp="1650813063034" />
+    <state width="974" height="94" key="GridCell.Tab.2.right" timestamp="1650813063035">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="974" height="94" key="GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824" timestamp="1650813063035" />
     <state width="212" height="477" key="HiddenNamespacesPopup" timestamp="1649002985050">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -284,10 +349,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="527" y="56" width="941" height="741" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1648974026076" />
-    <state x="606" y="145" width="672" height="160" key="search.everywhere.popup" timestamp="1650102333201">
+    <state x="606" y="145" width="672" height="160" key="search.everywhere.popup" timestamp="1650804770222">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="606" y="145" width="672" height="160" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1650102333201" />
+    <state x="606" y="145" width="672" height="160" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1650804770222" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

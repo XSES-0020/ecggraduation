@@ -141,6 +141,7 @@
 
             queryPatientByConditionForPage(1,10);
 
+            //查询按钮
             $("#queryPatientBtn").click(function () {
                 queryPatientByConditionForPage(1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
             });

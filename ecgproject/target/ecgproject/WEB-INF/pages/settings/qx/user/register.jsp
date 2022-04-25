@@ -21,6 +21,64 @@
 
     <script type="text/javascript">
         $(function () {
+            //按回车
+            $(window).keydown(function (event) {
+               if(event.keyCode==13){
+                   //收集参数
+                   var registerAct = $.trim($("#registerAct").val());
+                   var registerPwd = $.trim($("#registerPwd").val());
+                   var confirmPwd = $.trim($("#confirmPwd").val());
+
+                   //表单验证
+                   if(registerAct==""){
+                       alert("用户名不能为空");
+                       return;
+                   }
+                   if(registerPwd==""){
+                       alert("密码不能为空");
+                       return;
+                   }
+                   if(confirmPwd==""){
+                       alert("确认密码不能为空");
+                       return;
+                   }
+                   if(registerPwd!=confirmPwd){
+                       alert("两次密码输入不一致");
+                       return;
+                   }
+
+                   $.ajax({
+                       url:"settings/qx/user/register.do",
+                       data:{
+                           userId:registerAct,
+                           userPassword:registerPwd
+                       },
+                       type:'post',
+                       dataType:'json',
+                       success:function (data) {
+                           if(data.code=="1"){
+                               $("#msg").hide();
+                               //登陆成功，跳转到业务主页面
+                               if(window.confirm("创建成功，是否跳转至登录界面？")){
+                                   window.location.href="settings/qx/user/login.do";
+                               }else{
+                                   $("#registerForm").get(0).reset();
+                               }
+                           }else{
+                               //提示信息
+                               $("#msg").text(data.message);
+                           }
+                       },
+                       beforeSend:function () {
+                           //true执行ajax，false不执行
+                           //显示正在验证
+                           $("#msg").text("正在注册中……");
+                           return true;
+                       }
+                   });
+               }
+            });
+
             //注册按钮
             $("#registerBtn").click(function () {
                 //收集参数
