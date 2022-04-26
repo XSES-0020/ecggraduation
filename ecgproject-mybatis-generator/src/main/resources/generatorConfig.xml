@@ -128,8 +128,16 @@
         </table>
         -->
 
-        <!--appointment表 04/23-->
+        <!--appointment表 04/23
         <table tableName="appointment" domainObjectName="Appointment"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        -->
+
+        <!--machine表 04/25-->
+        <table tableName="machine" domainObjectName="Machine"
                enableCountByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" enableUpdateByExample="false"
                selectByExampleQueryId="false">

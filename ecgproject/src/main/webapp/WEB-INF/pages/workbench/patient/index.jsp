@@ -171,6 +171,7 @@
                 }
             });
 
+            //更新按钮
             $("#tBody").on("click","button[class='btn btn-primary btn-sm']",function () {
                 var id = this.value;
 
@@ -392,19 +393,6 @@
                         </div>
                     </div>
 
-                    <!--
-                    <div class="form-group">
-                        <label for="create-startTime" class="col-sm-2 control-label">开始日期</label>
-                        <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control" id="create-startTime">
-                        </div>
-                        <label for="create-endTime" class="col-sm-2 control-label">结束日期</label>
-                        <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control" id="create-endTime">
-                        </div>
-                    </div>
-                    -->
-
                     <div class="form-group">
 
                         <lable for="create-patientGender" class="col-sm-2 control-label">性别<span style="font-size: 15px; color: red;">*</span></lable>
@@ -468,33 +456,20 @@
                 <form id="editPatientForm" class="form-horizontal" role="form">
 
                     <div class="form-group">
-                        <label for="create-patientId" class="col-sm-2 control-label">就诊卡号<span style="font-size: 15px; color: red;">*</span></label>
+                        <label for="edit-patientId" class="col-sm-2 control-label">就诊卡号<span style="font-size: 15px; color: red;">*</span></label>
                         <div class="col-sm-10" style="width: 300px;">
                             <input type="text" class="form-control" id="edit-patientId" readonly>
                         </div>
 
-                        <label for="create-patientName" class="col-sm-2 control-label">姓名<span style="font-size: 15px; color: red;">*</span></label>
+                        <label for="edit-patientName" class="col-sm-2 control-label">姓名<span style="font-size: 15px; color: red;">*</span></label>
                         <div class="col-sm-10" style="width: 300px;">
                             <input type="text" class="form-control" id="edit-patientName">
                         </div>
                     </div>
 
-                    <!--
-                    <div class="form-group">
-                        <label for="create-startTime" class="col-sm-2 control-label">开始日期</label>
-                        <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control" id="create-startTime">
-                        </div>
-                        <label for="create-endTime" class="col-sm-2 control-label">结束日期</label>
-                        <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control" id="create-endTime">
-                        </div>
-                    </div>
-                    -->
-
                     <div class="form-group">
 
-                        <lable for="create-patientGender" class="col-sm-2 control-label">性别<span style="font-size: 15px; color: red;">*</span></lable>
+                        <lable for="edit-patientGender" class="col-sm-2 control-label">性别<span style="font-size: 15px; color: red;">*</span></lable>
                         <div class="col-sm-10" style="width: 300px;">
                             <select class="form-control" id="edit-patientGender">
                                 <option value="0">男</option>
@@ -502,7 +477,7 @@
                             </select>
                         </div>
 
-                        <lable for="create-patientAge" class="col-sm-2 control-label">年龄</lable>
+                        <lable for="edit-patientAge" class="col-sm-2 control-label">年龄</lable>
                         <div class="col-sm-10" style="width: 300px;">
                             <input type="text" class="form-control" id="edit-patientAge">
                         </div>
@@ -510,12 +485,12 @@
 
                     <div class="form-group">
 
-                        <label for="create-patientPhone" class="col-sm-2 control-label">联系电话</label>
+                        <label for="edit-patientPhone" class="col-sm-2 control-label">联系电话</label>
                         <div class="col-sm-10" style="width: 300px;">
                             <input type="text" class="form-control" id="edit-patientPhone">
                         </div>
 
-                        <label for="create-patientIdCard" class="col-sm-2 control-label">身份证号</label>
+                        <label for="edit-patientIdCard" class="col-sm-2 control-label">身份证号</label>
                         <div class="col-sm-10" style="width: 300px;">
                             <input type="text" class="form-control" id="edit-patientIdCard">
                         </div>
@@ -523,7 +498,7 @@
 
 
                     <div class="form-group">
-                        <label for="create-patientBirthday" class="col-sm-2 control-label">出生日期</label>
+                        <label for="edit-patientBirthday" class="col-sm-2 control-label">出生日期</label>
                         <div class="col-sm-10" style="width: 300px;">
                             <input type="text" class="form-control" id="edit-patientBirthday" readonly>
                         </div>
@@ -653,65 +628,11 @@
                 </thead>
                 <tbody id="tBody">
 
-                <%--<tr class="active">
-                    <td><input type="checkbox" /></td>
-                    <td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail.html';">发传单</a></td>
-                    <td>zhangsan</td>
-                    <td>2020-10-10</td>
-                    <td>2020-10-20</td>
-                </tr>
-                <tr class="active">
-                    <td><input type="checkbox" /></td>
-                    <td><a style="text-decoration: none; cursor: pointer;" onclick="window.location.href='detail.html';">发传单</a></td>
-                    <td>zhangsan</td>
-                    <td>2020-10-10</td>
-                    <td>2020-10-20</td>
-                </tr>--%>
                 </tbody>
             </table>
-
             <div id="demo_pag1"></div>
         </div>
-
-
-<%--
-        <div style="height: 50px; position: relative;top: 30px;">
-            <div>
-                <button type="button" class="btn btn-default" style="cursor: default;">共<b id="totalRowsB">50</b>条记录</button>
-            </div>
-            <div class="btn-group" style="position: relative;top: -34px; left: 110px;">
-                <button type="button" class="btn btn-default" style="cursor: default;">显示</button>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        10
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">20</a></li>
-                        <li><a href="#">30</a></li>
-                    </ul>
-                </div>
-                <button type="button" class="btn btn-default" style="cursor: default;">条/页</button>
-            </div>
-            <div style="position: relative;top: -88px; left: 285px;">
-                <nav>
-                    <ul class="pagination">
-                        <li class="disabled"><a href="#">首页</a></li>
-                        <li class="disabled"><a href="#">上一页</a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">下一页</a></li>
-                        <li class="disabled"><a href="#">末页</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>--%>
-
     </div>
-
 </div>
 </body>
 </html>

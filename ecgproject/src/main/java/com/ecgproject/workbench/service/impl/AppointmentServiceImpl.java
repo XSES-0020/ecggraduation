@@ -5,6 +5,7 @@ import com.ecgproject.workbench.mapper.AppointmentMapper;
 import com.ecgproject.workbench.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -23,5 +24,26 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public int queryAppointmentCountOfByCondition(Map<String, Object> map) {
         return appointmentMapper.selectCountOfAppointmentByCondition(map);
+    }
+
+    @Override
+    public int saveCreateAppointment(Appointment appointment) {
+        return appointmentMapper.insertAppointment(appointment);
+    }
+
+    @Override
+    public int deleteAppointmentById(String appointmentId) {
+        return appointmentMapper.deleteById(appointmentId);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public int updateAppointmentById(Map<String, Object> map) {
+        return appointmentMapper.updateAppointmentById(map);
+    }
+
+    @Override
+    public Appointment queryAppointmentById(String appointmentId) {
+        return appointmentMapper.selectAppointmentById(appointmentId);
     }
 }

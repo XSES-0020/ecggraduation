@@ -11,4 +11,7 @@ public interface DepartmentService {
 
     //根据条件查询符合的医生总数
     int queryDepartmentCountOfByCondition(Map<String,Object> map);
+
+    //查所有
+    List<Department> queryAllDepartments();
 }

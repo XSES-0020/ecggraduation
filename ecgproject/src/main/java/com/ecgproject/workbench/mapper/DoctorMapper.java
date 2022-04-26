@@ -64,4 +64,10 @@ public interface DoctorMapper {
      * 根据条件查询医生总条数
      */
     int selectCountOfDoctorByCondition(Map<String,Object> map);
+
+    /**
+     * 查询所有医生
+     * @return
+     */
+    List<Doctor> selectAllDoctors();
 }

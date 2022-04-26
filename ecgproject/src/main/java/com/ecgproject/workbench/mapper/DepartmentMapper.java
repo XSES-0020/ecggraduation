@@ -63,4 +63,10 @@ public interface DepartmentMapper {
      * 根据条件查询科室总条数
      */
     int selectCountOfDepartmentByCondition(Map<String,Object> map);
+
+    /**
+     * 查询所有科室
+     * @return
+     */
+    List<Department> selectAllDepartments();
 }

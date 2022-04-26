@@ -117,8 +117,6 @@ public class PatientController {
 
     @RequestMapping("/workbench/patient/saveEditPatient.do")
     public @ResponseBody Object saveEditPatient(Patient patient){
-        //加个参数
-        patient.setPatientCreatetime(new Date());
 
         ReturnObject returnObject = new ReturnObject();
         try{

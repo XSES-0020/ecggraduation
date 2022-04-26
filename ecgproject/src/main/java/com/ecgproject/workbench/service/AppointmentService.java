@@ -11,4 +11,16 @@ public interface AppointmentService {
 
     //根据条件查询符合的总数
     int queryAppointmentCountOfByCondition(Map<String,Object> map);
+
+    //添加预约
+    int saveCreateAppointment(Appointment appointment);
+
+    //删除预约
+    int deleteAppointmentById(String appointmentId);
+
+    //处理预约
+    int updateAppointmentById(Map<String,Object> map);
+
+    //单搜
+    Appointment queryAppointmentById(String appointmentId);
 }

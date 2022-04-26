@@ -82,4 +82,10 @@ public interface PatientMapper {
      * @return
      */
     int updatePatient(Patient patient);
+
+    /**
+     * 查询所有患者
+     * @return
+     */
+    List<Patient> selectAllPatients();
 }

@@ -12,4 +12,7 @@ public interface DoctorService {
 
     //根据条件查询符合的医生总数
     int queryCountOfByCondition(Map<String,Object> map);
+
+    //查询所有
+    List<Doctor> queryAllDoctors();
 }

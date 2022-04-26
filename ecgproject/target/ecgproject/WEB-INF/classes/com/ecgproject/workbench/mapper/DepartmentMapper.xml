@@ -130,4 +130,10 @@
       </if>
     </where>
   </select>
+
+  <select id="selectAllDepartments" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from department
+  </select>
 </mapper>

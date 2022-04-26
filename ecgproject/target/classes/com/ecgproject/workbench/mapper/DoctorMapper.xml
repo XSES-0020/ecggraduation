@@ -178,4 +178,9 @@
     </where>
   </select>
 
+  <select id="selectAllDoctors" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from doctor
+  </select>
 </mapper>

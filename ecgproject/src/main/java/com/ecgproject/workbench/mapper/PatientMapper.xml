@@ -212,4 +212,10 @@
     patient_idcard=#{patientIdcard}
     where patient_id=#{patientId}
   </update>
+
+  <select id="selectAllPatients" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from patient
+  </select>
 </mapper>

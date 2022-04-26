@@ -44,4 +44,10 @@ public class PatientServiceImpl implements PatientService {
     public int saveEditPatient(Patient patient) {
         return patientMapper.updatePatient(patient);
     }
+
+
+    @Override
+    public List<Patient> queryAllPatients() {
+        return patientMapper.selectAllPatients();
+    }
 }

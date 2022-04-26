@@ -24,4 +24,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     public int queryDepartmentCountOfByCondition(Map<String, Object> map) {
         return departmentMapper.selectCountOfDepartmentByCondition(map);
     }
+
+    @Override
+    public List<Department> queryAllDepartments() {
+        return departmentMapper.selectAllDepartments();
+    }
 }

@@ -17,4 +17,6 @@ public interface PatientService {
     Patient queryPatientById(String id);
 
     int saveEditPatient(Patient patient);
+
+    List<Patient> queryAllPatients();
 }

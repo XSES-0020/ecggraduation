@@ -24,4 +24,9 @@ public class DoctorServiceImpl implements DoctorService {
     public int queryCountOfByCondition(Map<String, Object> map) {
         return doctorMapper.selectCountOfDoctorByCondition(map);
     }
+
+    @Override
+    public List<Doctor> queryAllDoctors() {
+        return doctorMapper.selectAllDoctors();
+    }
 }
