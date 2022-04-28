@@ -1,5 +1,6 @@
 package com.ecgproject.workbench.mapper;
 
+import com.ecgproject.workbench.domain.DoughnutVO;
 import com.ecgproject.workbench.domain.Machine;
 
 import java.util.List;
@@ -81,4 +82,10 @@ public interface MachineMapper {
      * @mbggenerated Mon Apr 25 23:26:38 CST 2022
      */
     int deleteMachineById(String machineId);
+
+    /**
+     * 以组为单位查询机器表中各个状态的数据量
+     * @return
+     */
+    List<DoughnutVO> selectCountOfMachineGroupByState();
 }

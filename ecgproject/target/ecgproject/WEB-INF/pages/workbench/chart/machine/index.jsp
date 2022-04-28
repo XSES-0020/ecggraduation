@@ -20,7 +20,59 @@
     <title>演示echarts</title>
     <script type="text/javascript">
         $(function () {
+            $.ajax({
+                url:'workbench/chart/machine/queryCountOfMachineGroupByState.do',
+                type:'post',
+                dataType:'json',
+                success:function (data) {
+                    //调用工具函数，显示图
+                    var myChart = echarts.init(document.getElementById('main'));
 
+                    var option = {
+                        title:{
+                          text:'机器状态分布图',
+                          subtext: '各个状态机器数的占比'
+                        },
+                        tooltip: {
+                            trigger: 'item'
+                        },
+                        legend: {
+                            top: '5%',
+                            left: 'center'
+                        },
+                        series: [
+                            {
+                                name: 'Access From',
+                                type: 'pie',
+                                radius: ['40%', '70%'],
+                                avoidLabelOverlap: false,
+                                itemStyle: {
+                                    borderRadius: 10,
+                                    borderColor: '#fff',
+                                    borderWidth: 2
+                                },
+                                label: {
+                                    show: false,
+                                    position: 'center'
+                                },
+                                emphasis: {
+                                    label: {
+                                        show: true,
+                                        fontSize: '40',
+                                        fontWeight: 'bold'
+                                    }
+                                },
+                                labelLine: {
+                                    show: false
+                                },
+                                data:data
+                            }
+                        ]
+                    };
+
+                    myChart.setOption(option);
+                }
+            });
         });
     </script>
 </head>

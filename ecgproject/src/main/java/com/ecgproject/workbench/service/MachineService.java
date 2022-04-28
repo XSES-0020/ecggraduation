@@ -1,5 +1,6 @@
 package com.ecgproject.workbench.service;
 
+import com.ecgproject.workbench.domain.DoughnutVO;
 import com.ecgproject.workbench.domain.Machine;
 
 import javax.crypto.Mac;
@@ -27,4 +28,7 @@ public interface MachineService {
 
     //单查
     Machine queryMachineById(String machineId);
+
+    //查各个状态的机器数
+    List<DoughnutVO> queryCountOfMachineGroupByState();
 }

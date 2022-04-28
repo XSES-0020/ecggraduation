@@ -130,4 +130,10 @@
       </if>
     </where>
   </select>
+
+  <select id="selectCountOfMachineGroupByState" resultType="com.ecgproject.workbench.domain.DoughnutVO">
+    select count(*) as value,machine_state as name
+    from machine
+    group by machine_state
+  </select>
 </mapper>

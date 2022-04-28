@@ -1,5 +1,6 @@
 package com.ecgproject.workbench.service.impl;
 
+import com.ecgproject.workbench.domain.DoughnutVO;
 import com.ecgproject.workbench.domain.Machine;
 import com.ecgproject.workbench.mapper.MachineMapper;
 import com.ecgproject.workbench.service.MachineService;
@@ -49,5 +50,10 @@ public class MachineServiceImpl implements MachineService {
     @Override
     public Machine queryMachineById(String machineId) {
         return machineMapper.selectByMachineId(machineId);
+    }
+
+    @Override
+    public List<DoughnutVO> queryCountOfMachineGroupByState() {
+        return machineMapper.selectCountOfMachineGroupByState();
     }
 }
