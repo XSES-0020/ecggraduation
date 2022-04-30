@@ -13,8 +13,11 @@
 <html>
 <head>
     <base href = "<%=basePath%>">
-    <!--引入jquery-->
+    <meta charset="UTF-8">
+    <link href="jquery/bootstrap_3.3.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <link href="jquery/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="jquery/jquery-1.11.1-min.js"></script>
+    <script type="text/javascript" src="jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
     <!--引入echarts插件-->
     <script type="text/javascript" src="jquery/echarts/echarts.min.js"></script>
     <title>演示echarts</title>
@@ -73,11 +76,14 @@
                     myChart.setOption(option);
                 }
             });
+
+
         });
     </script>
 </head>
 <body>
     <!--容器-->
-    <div id="main" style="width: 80%;height:50% "></div>
+    <div id="main" style="width: 50%;height:50% "></div>
+
 </body>
 </html>

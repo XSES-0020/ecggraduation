@@ -175,7 +175,7 @@
             <li class="liClass"><a href="workbench/department/index.do" target="workareaFrame"><span class="glyphicon glyphicon-user"></span> 科室列表</a></li>
             <li class="liClass"><a href="workbench/appointment/index.do" target="workareaFrame"><span class="glyphicon glyphicon-play-circle"></span> 预约列表</a></li>
             <li class="liClass"><a href="workbench/machine/index.do" target="workareaFrame"><span class="glyphicon glyphicon-search"></span> 机器列表</a></li>
-            <li class="liClass"><a href="customer/index.html" target="workareaFrame"><span class="glyphicon glyphicon-user"></span> 客户</a></li>
+            <li class="liClass"><a href="workbench/ecg/index.do" target="workareaFrame"><span class="glyphicon glyphicon-user"></span> ecg文件</a></li>
             <li class="liClass"><a href="contacts/index.html" target="workareaFrame"><span class="glyphicon glyphicon-earphone"></span> 联系人</a></li>
             <li class="liClass"><a href="transaction/index.html" target="workareaFrame"><span class="glyphicon glyphicon-usd"></span> 交易（商机）</a></li>
             <li class="liClass"><a href="visit/index.html" target="workareaFrame"><span class="glyphicon glyphicon-phone-alt"></span> 售后回访</a></li>

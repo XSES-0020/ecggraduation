@@ -42,7 +42,7 @@
                         },
                         series: [
                             {
-                                name: 'Access From',
+                                name: '机器状态分布图',
                                 type: 'pie',
                                 radius: ['40%', '70%'],
                                 avoidLabelOverlap: false,

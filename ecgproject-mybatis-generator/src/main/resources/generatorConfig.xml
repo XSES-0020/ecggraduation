@@ -136,8 +136,16 @@
         </table>
         -->
 
-        <!--machine表 04/25-->
+        <!--machine表 04/25
         <table tableName="machine" domainObjectName="Machine"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        -->
+
+        <!--ecg表 04/29-->
+        <table tableName="ecg" domainObjectName="Ecg"
                enableCountByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" enableUpdateByExample="false"
                selectByExampleQueryId="false">

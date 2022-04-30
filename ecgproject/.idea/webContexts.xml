@@ -4,6 +4,7 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/workbench/appointment/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/workbench/appointment" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/workbench/ecg/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/workbench/ecg" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/workbench/patient/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/pages/workbench/patient" />
       </map>
     </option>
