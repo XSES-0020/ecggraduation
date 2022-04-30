@@ -82,8 +82,10 @@
     </script>
 </head>
 <body>
-    <!--容器-->
-    <div id="main" style="width: 50%;height:50% "></div>
+    <div>
+        <div id="main" style="left: 5%;top: 5%;width: 50%;height:50% "></div>
+
+    </div>
 
 </body>
 </html>

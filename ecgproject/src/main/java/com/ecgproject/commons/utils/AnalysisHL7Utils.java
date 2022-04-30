@@ -12,14 +12,15 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 public class AnalysisHL7Utils {
-    public static Map analysisHL7(){
+    public static Map analysisHL7(String ecgUrl){
         Map<String,Object> map = new HashMap<>();
         //map.put("test","test");
         try {
             //用以读取xml文档
             SAXReader saxReader = new SAXReader();
             //读取指定的xml文件之后返回一个Document对象，这个对象代表了整个XML文档，用于各种Dom运算。执照XML文件头所定义的编码来转换。
-            Document document = saxReader.read("F:\\1.XML");
+            Document document = saxReader.read(ecgUrl);
+            System.out.println(ecgUrl);
 
             //获取根节点：根节点是xml分析的开始，任何xml分析工作都需要从根开始
             Element rootElement = document.getRootElement();
@@ -71,6 +72,8 @@ public class AnalysisHL7Utils {
                 }
             }
 
+            //String increment = (String)map.get("taketime");
+            //System.out.println(increment);
             /*for(String key:map.keySet()){
                 System.out.println("key:"+key+"value:"+map.get(key));
             }*/

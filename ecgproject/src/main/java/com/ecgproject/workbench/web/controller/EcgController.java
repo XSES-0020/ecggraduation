@@ -1,5 +1,6 @@
 package com.ecgproject.workbench.web.controller;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.ecgproject.commons.constants.Constants;
 import com.ecgproject.commons.domain.ReturnObject;
 import com.ecgproject.commons.utils.*;
@@ -48,22 +49,21 @@ public class EcgController {
     }
 
     @RequestMapping("/workbench/ecg/showEcgById.do")
-    public @ResponseBody Object showEcgById(){
-        ReturnObject returnObject = new ReturnObject();
-        //MouseUtils mouseUtils = new MouseUtils();
-        try{
-            AnalysisHL7Utils analysisHL7Utils = new AnalysisHL7Utils();
-            Map map = analysisHL7Utils.analysisHL7();
-            DrawECGUtils drawECGUtils = new DrawECGUtils();
-            drawECGUtils.drawEcg(map);
-            //Desktop.getDesktop().open(new File("E:\\IDEA\\ecggraduation\\ECGToolkit\\ECGViewer.exe"));
-            returnObject.setCode(Constants.RETURN_OBJECT_CODE_SUCCESS);
-        }catch (Exception e){
-            e.printStackTrace();
-            returnObject.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
-            returnObject.setMessage("系统忙碌，请稍后重试……");
-        }
-        return returnObject;
+    public @ResponseBody Object showEcgById(String ecgId){
+        Ecg ecg = ecgService.queryEcgById(ecgId);
+        //获得后台服务器存着该文件的地址
+        String ecgUrl = ecg.getEcgUrl();
+
+        AnalysisHL7Utils analysisHL7Utils = new AnalysisHL7Utils();
+        Map map1 = analysisHL7Utils.analysisHL7(ecgUrl);
+
+        DrawECGUtils drawECGUtils = new DrawECGUtils();
+        byte[] image = drawECGUtils.drawEcg(map1);
+        //Desktop.getDesktop().open(new File("E:\\IDEA\\ecggraduation\\ECGToolkit\\ECGViewer.exe"));
+        //returnObject.setCode(Constants.RETURN_OBJECT_CODE_SUCCESS);
+        //String string = JSONUtils.toJSONString(image);
+
+        return image;
     }
 
     @RequestMapping("/workbench/ecg/queryEcgByConditionForPage.do")

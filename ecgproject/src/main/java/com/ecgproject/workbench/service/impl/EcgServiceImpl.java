@@ -29,4 +29,9 @@ public class EcgServiceImpl implements EcgService {
     public int queryCountOfEcgByCondition(Map<String, Object> map) {
         return ecgMapper.selectCountOfEcgByCondition(map);
     }
+
+    @Override
+    public Ecg queryEcgById(String ecgId) {
+        return ecgMapper.selectByPrimaryKey(ecgId);
+    }
 }

@@ -15,4 +15,7 @@ public interface EcgService {
 
     //查总数
     int queryCountOfEcgByCondition(Map<String,Object> map);
+
+    //查某个
+    Ecg queryEcgById(String ecgId);
 }

@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
 import org.apache.commons.lang3.StringUtils;
 
 public class DrawECGUtils {
-    public static void drawEcg(Map<String,Object> map){
+    public static byte[] drawEcg(Map<String,Object> map){
         String scalebase = (String)map.get("MDC_ECG_LEAD_V6_scale");
         Double scale = Double.parseDouble(scalebase);
 
@@ -25,9 +25,9 @@ public class DrawECGUtils {
 
         String data = (String)map.get("MDC_ECG_LEAD_V6_digit");
 
-        try {
+        byte[] imgByte = paintSingleLeadEcg(data, "PNG",scale,increment);
 
-            byte[] imgByte = paintSingleLeadEcg(data, "PNG",scale,increment);
+        try {
 
             // 确定写出文件的位置
             File file = new File("E:\\Test1.PNG");
@@ -41,6 +41,8 @@ public class DrawECGUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return imgByte;
     }
 
     /**

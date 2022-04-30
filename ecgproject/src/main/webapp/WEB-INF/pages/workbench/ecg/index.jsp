@@ -78,16 +78,23 @@
                 queryEcgByConditionForPage(1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
             });
 
-            //查看按钮 试一下
+            //查看按钮
             $("#tBody").on("click","button[class='btn btn-primary btn-sm']",function () {
                 var id = this.value;
 
                 $.ajax({
                     url:'workbench/ecg/showEcgById.do',
+                    data:{
+                        ecgId:id
+                    },
                     type:'post',
-                    dataType:'json',
+                    dataType:'arraybuffer',
                     success:function (data) {
-                        alert(data.message);
+                        $("#showEcgModal").modal("show");
+                        //$("#Image").attr("src","data:image/png;base64,"+data)
+                    },
+                    error:function (data) {
+                        alert("响应失败");
                     }
                 })
             });
@@ -114,7 +121,7 @@
                         htmlStr += "<td>" + obj.ecgUploadtime + "</td>";
                         htmlStr += "<td>" + obj.ecgUploader + "</td>";
                         htmlStr += "<td>" + obj.ecgPatient + "</td>";
-                        htmlStr += "<td><button type=\"button\" class=\"btn btn-primary btn-sm\" value=\"" + obj.ecgId + "\">下载查看</button>";
+                        htmlStr += "<td><button type=\"button\" class=\"btn btn-primary btn-sm\" value=\"" + obj.ecgId + "\">查看</button>";
                         htmlStr += "<button type=\"button\" class=\"btn btn-danger btn-sm\" value=\"" + obj.ecgId + "\" style=\"margin-left:4px\">删除</button></td>";
                         htmlStr += "</tr>";
                     });
@@ -162,6 +169,14 @@
 </head>
 <body>
 
+<div class="modal fade" id="showEcgModal" role="dialog">
+    <div class="modal-dialog" role="document" style="width: 85%;">
+        <div class="modal-content">
+            <img id="Image" alt="Base64 encoded image" width="100" height="100"/>
+        </div>
+    </div>
+</div>
+
 <!-- 添加患者的模态窗口 -->
 <div class="modal fade" id="importEcgModal" role="dialog">
     <div class="modal-dialog" role="document" style="width: 85%;">
@@ -180,12 +195,13 @@
                 <div style="position: relative;top: 40px; left: 50px;">
                     <input type="file" id="ecgFile">
                 </div>
-                <div style="position: relative;top: 60px; left: 50px;">
-                    <input type="text" class="form-control" id="import-patientId">
-                </div>
-                <div style="position: relative;top: 80px; left: 50px; width:60px">
+                <div style="position: relative;top: 40px; left: 50px; width:20%">
                     所属的患者就诊卡号：
                 </div>
+                <div style="position: relative;top:40px; left: 50px;width: 20%">
+                    <input type="text" class="form-control" id="import-patientId">
+                </div>
+
                 <div style="position: relative; width: 400px; height: 320px; left: 45% ; top: -40px;" >
                     <h3>重要提示</h3>
                     <ul>
