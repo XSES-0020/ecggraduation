@@ -31,4 +31,7 @@ public interface MachineService {
 
     //查各个状态的机器数
     List<DoughnutVO> queryCountOfMachineGroupByState();
+
+    //查所有
+    List<Machine> queryAllMachines();
 }

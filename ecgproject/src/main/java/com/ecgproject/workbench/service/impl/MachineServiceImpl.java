@@ -56,4 +56,9 @@ public class MachineServiceImpl implements MachineService {
     public List<DoughnutVO> queryCountOfMachineGroupByState() {
         return machineMapper.selectCountOfMachineGroupByState();
     }
+
+    @Override
+    public List<Machine> queryAllMachines() {
+        return machineMapper.selectAllMachines();
+    }
 }

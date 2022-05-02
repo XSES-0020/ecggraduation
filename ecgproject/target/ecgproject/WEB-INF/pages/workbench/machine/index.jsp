@@ -11,7 +11,6 @@
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
 %>
 <html>
-
 <head>
     <base href = "<%=basePath%>">
     <meta charset="UTF-8">
@@ -26,6 +25,7 @@
     <link rel="stylesheet" type="text/css" href="jquery/bs_pagination-master/css/jquery.bs_pagination.min.css">
     <script type="text/javascript" src="jquery/bs_pagination-master/js/jquery.bs_pagination.min.js"></script>
     <script type="text/javascript" src="jquery/bs_pagination-master/localization/en.js"></script>
+
     <script type="text/javascript">
         $(function () {
             //给创建按钮添加单击事件
@@ -67,7 +67,18 @@
                             //关闭模态窗口
                             $("#createMachineModal").modal("hide");
                             //刷新市场活动列
-                            queryMachineByConditionForPage(1, $("#demo_pag1").bs_pagination('getOption', 'rowsPerPage'));
+                            var scan = $("input[name='options']:checked").val();
+                            if(scan=="option1"){
+                                queryMachineByConditionForPage(null,1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
+                            }else if(scan=="option2"){
+                                queryMachineByConditionForPage(1,1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
+                            }else if(scan=="option3"){
+                                queryMachineByConditionForPage(0,1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
+                            }else if(scan=="option4"){
+                                queryMachineByConditionForPage(2,1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
+                            }else{
+                                queryMachineByConditionForPage(3,1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
+                            }
                         } else {
                             //提示信息
                             alert(data.message);
@@ -78,7 +89,23 @@
                 });
             });
 
-            queryMachineByConditionForPage(1,10);
+            queryMachineByConditionForPage(null,1,10);
+
+            //修改选项
+            $("input[type='radio'][name='options']").change(function () {
+                var scan = $("input[name='options']:checked").val();
+                if(scan=="option1"){
+                    queryMachineByConditionForPage(null,1,10);
+                }else if(scan=="option2"){
+                    queryMachineByConditionForPage(1,1,10);
+                }else if(scan=="option3"){
+                    queryMachineByConditionForPage(0,1,10);
+                }else if(scan=="option4"){
+                    queryMachineByConditionForPage(2,1,10);
+                }else{
+                    queryMachineByConditionForPage(3,1,10);
+                }
+            });
 
             //查询按钮
             $("#queryMachineBtn").click(function () {
@@ -100,7 +127,18 @@
                         success:function (data){
                             if(data.code=="1"){
                                 //刷新
-                                queryMachineByConditionForPage(1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
+                                var scan = $("input[name='options']:checked").val();
+                                if(scan=="option1"){
+                                    queryMachineByConditionForPage(null,1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
+                                }else if(scan=="option2"){
+                                    queryMachineByConditionForPage(1,1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
+                                }else if(scan=="option3"){
+                                    queryMachineByConditionForPage(0,1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
+                                }else if(scan=="option4"){
+                                    queryMachineByConditionForPage(2,1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
+                                }else{
+                                    queryMachineByConditionForPage(3,1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
+                                }
                             }else{
                                 //提示
                                 alert(data.message);
@@ -133,8 +171,8 @@
             //保存更新
             $("#saveEditMachineBtn").click(function () {
                 //收集参数
-                var machineId = $.trim($("#create-machineId").val());
-                var machineState = $.trim($("#create-machineState").val());
+                var machineId = $.trim($("#edit-machineId").val());
+                var machineState = $.trim($("#edit-machineState").val());
 
                 //表单验证
                 if (machineId == "") {
@@ -160,7 +198,19 @@
                             //关闭模态窗口
                             $("#editMachineModal").modal("hide");
                             //刷新市场活动列
-                            queryMachineByConditionForPage($("#demo_pag1").bs_pagination('getOption','currentPage'),$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
+                            //刷新市场活动列
+                            var scan = $("input[name='options']:checked").val();
+                            if(scan=="option1"){
+                                queryMachineByConditionForPage(null,1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
+                            }else if(scan=="option2"){
+                                queryMachineByConditionForPage(1,1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
+                            }else if(scan=="option3"){
+                                queryMachineByConditionForPage(0,1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
+                            }else if(scan=="option4"){
+                                queryMachineByConditionForPage(2,1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
+                            }else{
+                                queryMachineByConditionForPage(3,1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
+                            }
                         }else{
                             //提示信息
                             alert(data.message);
@@ -175,16 +225,16 @@
         /**
          * 容器加载完了就执行
          */
-        function queryMachineByConditionForPage(pageNo,pageSize){
+        function queryMachineByConditionForPage(state,pageNo,pageSize){
             //当市场活动主页面加载完成，查询所有数据的第一页以及所有数据的总条数
             //收集参数
-            var queryState = $("#queryState").val();
+            //var queryState = $("#queryState").val();
 
             //发请求
             $.ajax({
                 url: 'workbench/machine/queryMachineByConditionForPage.do',
                 data: {
-                    state: queryState,
+                    state: state,
                     pageNo: pageNo,
                     pageSize: pageSize
                 },
@@ -230,8 +280,18 @@
                         //用户每次切换页号，都自动触发本函数;
                         //每次返回切换页号之后的pageNo和pageSize
                         onChangePage: function (event, pageObj) { // returns page_num and rows_per_page after a link has clicked
-                            //js代码
-                            queryMachineByConditionForPage(pageObj.currentPage, pageObj.rowsPerPage);
+                            var scan = $("input[name='options']:checked").val();
+                            if(scan=="option1"){
+                                queryMachineByConditionForPage(null,pageObj.currentPage, pageObj.rowsPerPage);
+                            }else if(scan=="option2"){
+                                queryMachineByConditionForPage(1,pageObj.currentPage, pageObj.rowsPerPage);
+                            }else if(scan=="option3"){
+                                queryMachineByConditionForPage(0,pageObj.currentPage, pageObj.rowsPerPage);
+                            }else if(scan=="option4"){
+                                queryMachineByConditionForPage(2,pageObj.currentPage, pageObj.rowsPerPage);
+                            }else{
+                                queryMachineByConditionForPage(3,pageObj.currentPage, pageObj.rowsPerPage);
+                            }
                         }
                     });
                 }
@@ -264,7 +324,11 @@
 
                         <label for="create-machineState" class="col-sm-2 control-label">机器状态<span style="font-size: 15px; color: red;">*</span></label>
                         <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control" id="create-machineState">
+                            <select class="form-control" id="create-machineState">
+                                <c:forEach items="${machinestateList}" var="m">
+                                    <option value="${m.machinestateId}">${m.machinestateDescribe}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                     </div>
 
@@ -301,7 +365,11 @@
 
                         <label for="edit-machineState" class="col-sm-2 control-label">机器状态<span style="font-size: 15px; color: red;">*</span></label>
                         <div class="col-sm-10" style="width: 300px;">
-                            <input type="text" class="form-control" id="edit-machineState">
+                            <select class="form-control" id="edit-machineState">
+                                <c:forEach items="${machinestateList}" var="m">
+                                    <option value="${m.machinestateId}">${m.machinestateDescribe}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                     </div>
 
@@ -324,9 +392,38 @@
     </div>
 </div>
 
-<div style="position: relative; top: -20px; left: 0px; width: 100%; height: 100%;">
+<div>
+    <div class="col-sm-3">
+        <!--来个按钮组先-->
+        <div id="btn-group" class="btn-group" data-toggle="buttons" style="position: relative; top: -10px;">
+            <label class="btn btn-default active">
+                <input type="radio" name="options" value="option1" checked="true">全部
+            </label>
+            <label class="btn btn-default">
+                <input type="radio" name="options" value="option2">可用
+            </label>
+            <label class="btn btn-default">
+                <input type="radio" name="options" value="option3">使用中
+            </label>
+            <label class="btn btn-default">
+                <input type="radio" name="options" value="option4">停用
+            </label>
+            <label class="btn btn-default">
+                <input type="radio" name="options" value="option5">故障
+            </label>
+        </div>
+    </div>
+
+    <div class="col-sm-1">
+        <div style="position: relative; top: -10px;">
+            <button type="button" class="btn btn-primary" id="createMachineBtn" style="position: relative; top: 18%;"><span class="glyphicon glyphicon-plus"></span> 添加</button>
+        </div>
+    </div>
+</div>
+
+<div style="position: relative; top: 20px; left: 0px; width: 100%; height: 100%;">
     <div style="width: 100%; position: absolute;top: 5px; left: 10px;">
-        <div class="btn-toolbar" role="toolbar" style="height: 80px;">
+       <%-- <div class="btn-toolbar" role="toolbar" style="height: 80px;">
             <form class="form-inline" role="form" style="position: relative;top: 8%; left: 5px;">
 
                 <div class="form-group">
@@ -340,12 +437,8 @@
                 <button type="button" class="btn btn-default" id="queryMachineBtn">查询</button>
 
             </form>
-        </div>
-        <div class="btn-toolbar" role="toolbar" style="background-color: #F7F7F7; height: 50px; position: relative;top: 5px;">
-            <div class="btn-group" style="position: relative; top: 18%;">
-                <button type="button" class="btn btn-primary" id="createMachineBtn"><span class="glyphicon glyphicon-plus"></span> 创建</button>
-            </div>
-        </div>
+        </div>--%>
+
         <div style="position: relative;top: 10px;">
             <table class="table table-hover">
                 <thead>

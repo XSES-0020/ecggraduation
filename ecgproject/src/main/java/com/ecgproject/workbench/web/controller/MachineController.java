@@ -4,13 +4,16 @@ package com.ecgproject.workbench.web.controller;
 import com.ecgproject.commons.constants.Constants;
 import com.ecgproject.commons.domain.ReturnObject;
 import com.ecgproject.workbench.domain.Machine;
+import com.ecgproject.workbench.domain.Machinestate;
 import com.ecgproject.workbench.domain.Patient;
 import com.ecgproject.workbench.service.MachineService;
+import com.ecgproject.workbench.service.MachinestateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,8 +24,16 @@ public class MachineController {
     @Autowired
     private MachineService machineService;
 
+    @Autowired
+    private MachinestateService machinestateService;
+
     @RequestMapping("/workbench/machine/index.do")
-    public String index(){
+    public String index(HttpServletRequest request){
+
+        //搜所有机器状态
+        List<Machinestate> machinestateList = machinestateService.queryAllMachinestates();
+        request.setAttribute("machinestateList",machinestateList);
+
         return "workbench/machine/index";
     }
 
@@ -81,9 +92,11 @@ public class MachineController {
 
     //改机器状态
     @RequestMapping("/workbench/machine/saveEditMachine.do")
-    public @ResponseBody Object saveEditMachine(Map<String,Object> map){
+    public @ResponseBody Object saveEditMachine(String machineId,String machineState){
         //这里应该用machine 但是我之前appointment功能用的map所以就这样吧来不及改了
-
+        Map<String,Object> map = new HashMap<>();
+        map.put("machineId",machineId);
+        map.put("machineState",machineState);
         ReturnObject returnObject = new ReturnObject();
         try{
             //调service

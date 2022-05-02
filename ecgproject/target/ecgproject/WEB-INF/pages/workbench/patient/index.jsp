@@ -69,20 +69,6 @@
                     return;
                 }
 
-                /**
-                var regExp2 = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$/;
-                if((!regExp2.test(patientPhone))&&(patientPhone!="")){
-                    alert("请输入正确格式的手机号");
-                    return;
-                }
-
-                var regExp3 = /\d{15}|\d{18}/;
-                if((!regExp3.test(patientIdCard))&&(patientIdCard!="")){
-                    alert("请输入正确格式的身份证号");
-                    return;
-                }
-                 **/
-
                 //发送请求
                 $.ajax({
                     url:'workbench/patient/saveCreatePatient.do',
@@ -111,18 +97,6 @@
                         }
                     }
                 });
-
-                /**
-                 * if(startDate!=""&&endDate!=""){
-                 *     //用字符串大小代替日期大小
-                 *     if(endDate<startDate){
-                 *          alert("结束日期不能比开始日期早");
-                 *          return;
-                 *     }
-                 * }
-                 */
-
-
             });
 
             /**
@@ -268,14 +242,16 @@
             //当市场活动主页面加载完成，查询所有数据的第一页以及所有数据的总条数
             //收集参数
             var queryName = $("#queryName").val();
-            //var pageNo = 1;
-            //var pageSize = 10;
+            var queryId = $("#queryId").val();
+            var queryIdcard = $("#queryIdcard").val();
 
             //发请求
             $.ajax({
                 url: 'workbench/patient/queryPatientByConditionForPage.do',
                 data: {
                     name: queryName,
+                    id:queryId,
+                    idcard:queryIdcard,
                     pageNo: pageNo,
                     pageSize: pageSize
                 },
@@ -283,11 +259,9 @@
                 dataType: 'json',
                 success: function (data) {
                     //总条数
-                    //$("#totalRowsB").text(data.totalRows);
                     var htmlStr = "";
                     $.each(data.patientList, function (index, obj) {
                         htmlStr += "<tr class=\"active\">";
-                        //htmlStr+=<td><input type="checkbox" /></td>;
                         htmlStr += "<td>" + obj.patientId + "</td>";
                         htmlStr += "<td>" + obj.patientName + "</td>";
                         htmlStr += "<td>" + obj.patientAge + "</td>";
@@ -315,10 +289,7 @@
                             htmlStr += "<td></td>";
                         }
 
-                        /*htmlStr += "<td><button type=\"button\" class=\"btn btn-primary btn-sm\">详细</button>";*/
-                        /*htmlStr += "<button type=\"button\" class=\"btn btn-success btn-sm\" style=\"margin-left:4px\">修改</button>";*/
                         htmlStr += "<td><button type=\"button\" class=\"btn btn-primary btn-sm\" value=\"" + obj.patientId + "\">修改</button>";
-                        /*htmlStr += "<button type=\"button\" class=\"btn btn-danger btn-sm\" style=\"margin-left:4px\">删除</button></td>";*/
                         htmlStr += "<button type=\"button\" class=\"btn btn-danger btn-sm\" value=\"" + obj.patientId + "\" style=\"margin-left:4px\">删除</button></td>";
                         htmlStr += "</tr>";
                     });
@@ -515,44 +486,6 @@
     </div>
 </div>
 
-<!-- 导入市场活动的模态窗口 -->
-<div class="modal fade" id="importActivityModal" role="dialog">
-    <div class="modal-dialog" role="document" style="width: 85%;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                    <span aria-hidden="true">×</span>
-                </button>
-                <h4 class="modal-title" id="myModalLabel">导入市场活动</h4>
-            </div>
-            <div class="modal-body" style="height: 350px;">
-                <div style="position: relative;top: 20px; left: 50px;">
-                    请选择要上传的文件：<small style="color: gray;">[仅支持.xls]</small>
-                </div>
-                <div style="position: relative;top: 40px; left: 50px;">
-                    <input type="file" id="activityFile">
-                </div>
-                <div style="position: relative; width: 400px; height: 320px; left: 45% ; top: -40px;" >
-                    <h3>重要提示</h3>
-                    <ul>
-                        <li>操作仅针对Excel，仅支持后缀名为XLS的文件。</li>
-                        <li>给定文件的第一行将视为字段名。</li>
-                        <li>请确认您的文件大小不超过5MB。</li>
-                        <li>日期值以文本形式保存，必须符合yyyy-MM-dd格式。</li>
-                        <li>日期时间以文本形式保存，必须符合yyyy-MM-dd HH:mm:ss的格式。</li>
-                        <li>默认情况下，字符编码是UTF-8 (统一码)，请确保您导入的文件使用的是正确的字符编码方式。</li>
-                        <li>建议您在导入真实数据之前用测试文件测试文件导入功能。</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button id="importActivityBtn" type="button" class="btn btn-primary">导入</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <div>
     <div style="position: relative; left: 10px; top: -10px;">
@@ -569,29 +502,22 @@
 
                 <div class="form-group">
                     <div class="input-group">
-                        <div class="input-group-addon">名称</div>
+                        <div class="input-group-addon">患者姓名</div>
                         <input class="form-control" type="text" id="queryName">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="input-group">
-                        <div class="input-group-addon">所有者</div>
-                        <input class="form-control" type="text" id="query-owner">
+                        <div class="input-group-addon">就诊卡号</div>
+                        <input class="form-control" type="text" id="queryId">
                     </div>
                 </div>
 
-
                 <div class="form-group">
                     <div class="input-group">
-                        <div class="input-group-addon">开始日期</div>
-                        <input class="form-control" type="text" id="query-startDate" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">结束日期</div>
-                        <input class="form-control" type="text" id="query-endDate">
+                        <div class="input-group-addon">身份证号</div>
+                        <input class="form-control" type="text" id="queryIdcard" />
                     </div>
                 </div>
 
@@ -601,14 +527,7 @@
         </div>
         <div class="btn-toolbar" role="toolbar" style="background-color: #F7F7F7; height: 50px; position: relative;top: 5px;">
             <div class="btn-group" style="position: relative; top: 18%;">
-                <button type="button" class="btn btn-primary" id="createPatientBtn"><span class="glyphicon glyphicon-plus"></span> 创建</button>
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editActivityModal"><span class="glyphicon glyphicon-pencil"></span> 修改</button>
-                <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span> 删除</button>
-            </div>
-            <div class="btn-group" style="position: relative; top: 18%;">
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#importActivityModal" ><span class="glyphicon glyphicon-import"></span> 上传列表数据（导入）</button>
-                <button id="exportActivityAllBtn" type="button" class="btn btn-default"><span class="glyphicon glyphicon-export"></span> 下载列表数据（批量导出）</button>
-                <button id="exportActivityXzBtn" type="button" class="btn btn-default"><span class="glyphicon glyphicon-export"></span> 下载列表数据（选择导出）</button>
+                <button type="button" class="btn btn-primary" id="createPatientBtn"><span class="glyphicon glyphicon-plus"></span> 添加</button>
             </div>
         </div>
         <div style="position: relative;top: 10px;">

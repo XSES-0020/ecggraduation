@@ -34,4 +34,9 @@ public class EcgServiceImpl implements EcgService {
     public Ecg queryEcgById(String ecgId) {
         return ecgMapper.selectByPrimaryKey(ecgId);
     }
+
+    @Override
+    public int deleteEcgById(String ecgId) {
+        return ecgMapper.deleteEcgById(ecgId);
+    }
 }

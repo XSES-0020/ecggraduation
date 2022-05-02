@@ -110,12 +110,12 @@
   </insert>
 
   <select id="selectMachineByConditionForPage" parameterType="map" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from machine
+    select m.machine_id as machine_id,u.machinestate_describe as machine_state
+    from machine m
+    left join machinestate u on m.machine_state=u.machinestate_id
     <where>
       <if test="machineState!=null and machineState!=''">
-        machine_state=#{machineState}
+        m.machine_state=#{machineState}
       </if>
     </where>
     limit #{beginNo},#{pageSize}
@@ -132,8 +132,15 @@
   </select>
 
   <select id="selectCountOfMachineGroupByState" resultType="com.ecgproject.workbench.domain.DoughnutVO">
-    select count(*) as value,machine_state as name
+    select count(*) as value,u.machinestate_describe as name
+    from machine a
+    left join machinestate u on a.machine_state=u.machinestate_id
+    group by a.machine_state
+  </select>
+
+  <select id="selectAllMachines" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
     from machine
-    group by machine_state
   </select>
 </mapper>

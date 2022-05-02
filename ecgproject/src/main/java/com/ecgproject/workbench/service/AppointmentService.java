@@ -1,6 +1,8 @@
 package com.ecgproject.workbench.service;
 
 import com.ecgproject.workbench.domain.Appointment;
+import com.ecgproject.workbench.domain.BasicbarVO;
+import com.ecgproject.workbench.domain.DoughnutVO;
 
 import java.util.List;
 import java.util.Map;
@@ -23,4 +25,10 @@ public interface AppointmentService {
 
     //单搜
     Appointment queryAppointmentById(String appointmentId);
+
+    //根据使用次数查机器
+    List<BasicbarVO> queryCountOfMachineGroupByTime();
+
+    //查各个状态的预约数
+    List<DoughnutVO> queryCountOfAppointmentGroupByState();
 }

@@ -1,6 +1,8 @@
 package com.ecgproject.workbench.mapper;
 
 import com.ecgproject.workbench.domain.Appointment;
+import com.ecgproject.workbench.domain.BasicbarVO;
+import com.ecgproject.workbench.domain.DoughnutVO;
 
 import java.util.List;
 import java.util.Map;
@@ -78,4 +80,16 @@ public interface AppointmentMapper {
      * @return
      */
     Appointment selectAppointmentById(String appointmentId);
+
+    /**
+     * 根据使用次数
+     * @return
+     */
+    List<BasicbarVO> selectCountOfMachineGroupByTime();
+
+    /**
+     * 根据预约状态查询数量
+     * @return
+     */
+    List<DoughnutVO> selectCountOfAppointmentGroupByState();
 }

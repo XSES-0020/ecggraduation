@@ -88,7 +88,13 @@
                     success:function (data){
                         if(data.code=="1"){
                             //登陆成功，跳转到业务主页面
-                            window.location.href="workbench/index.do";
+                            var role = data.role;
+                            if(role=="0"){
+                                window.location.href="workbench/index.do";
+                            }else{
+                                $("#msg").text("跳到管理员界面");
+                            }
+
                         }else{
                             //提示信息
                             $("#msg").text(data.message);

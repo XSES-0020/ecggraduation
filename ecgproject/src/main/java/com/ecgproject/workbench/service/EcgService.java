@@ -18,4 +18,7 @@ public interface EcgService {
 
     //查某个
     Ecg queryEcgById(String ecgId);
+
+    //删某个
+    int deleteEcgById(String ecgId);
 }

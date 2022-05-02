@@ -27,8 +27,22 @@
     <script type="text/javascript" src="jquery/bs_pagination-master/js/jquery.bs_pagination.min.js"></script>
     <script type="text/javascript" src="jquery/bs_pagination-master/localization/en.js"></script>
 
+    <!--引入select插件-->
+    <link href="jquery/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="jquery/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
+
+
     <script type="text/javascript">
         $(function () {
+            //下拉框属性
+            $(".selectpicker").selectpicker({
+                language:'zh-CN',
+                width:'100%',
+                size:5,
+                style:'',
+                styleBase:'form-control'
+            });
+
             //给创建按钮添加单击事件
             $("#createAppointmentBtn").click(function () {
                 //初始化工作 清空表单
@@ -36,6 +50,7 @@
 
                 //弹出添加患者的模态窗口
                 $("#createAppointmentModal").modal("show");
+
             });
 
             //给处理按钮添加单击事件
@@ -188,26 +203,30 @@
             //处理按钮
             $("#tBody").on("click","button[class='btn btn-primary btn-sm']",function () {
                 var id = this.value;
-                //初始化工作 清空表单
-                $("#dealAppointmentForm").get(0).reset();
-
+                $("#deal-appointmentId").val(id);
                 $.ajax({
                     url:"workbench/appointment/queryUsableMachines.do",
-                    data:{
-                        
-                    },
                     type:'post',
                     dataType:'json',
                     success:function (data) {
-                        $("#deal-appointmentMachine").empty();
+                        /*$("#deal-appointmentMachine").empty();*/
+
                         var htmlStr1 = "";
                         $.each(data.machineList, function (index,obj) {
                             htmlStr1 += "<option value=\"" + obj.machineId + "\">" + obj.machineId + "</option>";
-                            //显示
-                            $("#deal-appointmentMachine").html(htmlStr1);
                         });
+
+                        //显示
+                        $("#deal-appointmentMachine").html(htmlStr1);
+
+                        /*$('.selectpicker').selectpicker('render');
+                        $('.selectpicker').selectpicker('refresh');*/
+                        //弹出处理预约的模态窗口
+                        $("#dealAppointmentModal").modal("show");
                     }
                 });
+
+
             });
 
             //结束按钮
@@ -268,7 +287,6 @@
          * @param pageSize
          */
         function queryAppointmentByConditionForPage(take,pageNo,pageSize){
-            $("#tBody").html("");
             //发请求
             $.ajax({
                 url:"workbench/appointment/queryAppointmentByConditionForPage.do",
@@ -286,8 +304,18 @@
                         //浅拼一下字符串
                         htmlStr += "<tr class=\"appointment\">";
                         htmlStr += "<td>" + obj.appointmentCreatetime + "</td>";
-                        htmlStr += "<td>" + obj.appointmentDepartment + "</td>";
-                        htmlStr += "<td>" + obj.appointmentDoctor + "</td>";
+                        if(obj.appointmentDepartment!=null&&obj.appointmentDepartment!=""){
+                            htmlStr += "<td>" + obj.appointmentDepartment + "</td>";
+                        }else{
+                            htmlStr += "<td>/</td>";
+                        }
+
+                        if(obj.appointmentDoctor!=null&&obj.appointmentDoctor!=""){
+                            htmlStr += "<td>" + obj.appointmentDoctor + "</td>";
+                        }else{
+                            htmlStr += "<td>/</td>";
+                        }
+
                         htmlStr += "<td>" + obj.appointmentPatient + "</td>";
                         if(obj.appointmentStatus=="1"){
                             htmlStr += "<td>已完成</td>";
@@ -312,7 +340,7 @@
                             htmlStr += "<button type=\"button\" class=\"btn btn-danger btn-sm\" value=\"" + obj.appointmentId + "\" style=\"margin-left:4px\">删除</button></td>";
                         }
                         htmlStr += "</tr>";
-
+                    });
                         //显示
                         $("#tBody").html(htmlStr);
 
@@ -327,7 +355,7 @@
                         /**
                          * 翻页的
                          */
-                        //调bs_pagination工具函数显示翻页信息
+                        //调b工s_pagination具函数显示翻页信息
                         $("#demo_pag1").bs_pagination({
                             currentPage: pageNo,//当前页号,相当于pageNo
 
@@ -356,11 +384,12 @@
                                 }
                             }
                         });
-                    });
+
                 }
             });
         }
     </script>
+
 </head>
 <body>
 
@@ -378,16 +407,22 @@
             <div class="modal-body">
                 <form id="dealAppointmentForm" class="form-horizontal" role="form">
                     <div class="form-group">
+
+                        <input id="deal-appointmentId" readonly>
+
                         <label for="deal-appointmentMachine" class="col-sm-2 control-label">分配处理机器<span style="font-size: 15px; color: red;">*</span></label>
                         <div class="col-sm-10" style="width: 300px;">
-                            <select class="form-control" id="deal-appointmentMachine">
+                            <select class="form-control" id="deal-appointmentMachine" style="width: 150px">
+                                <!--这里用ajax解析data的话就不能用selectpicker 它解析不了html函数我也不知道为啥……差点做死-->
                             </select>
+                            <%--<select class="selectpicker" id="deal-appointmentMachine" style="width: 150px" data-live-search="true">
+                                <option value="">请选择</option>
+                                <c:forEach items="${machineList}" var="m">
+                                    <option value="${m.machineId}">${m.machineId}</option>
+                                </c:forEach>
+                            </select>--%>
                         </div>
 
-                        <label for="deal-appointmentId" class="col-sm-2 control-label" hidden>预约编号</label>
-                        <div class="col-sm-10" style="width: 300px;" hidden>
-                            <input class="form-control" id="deal-appointmentId" hidden>
-                        </div>
                     </div>
 
                 </form>
@@ -418,12 +453,11 @@
                     <div class="form-group">
                         <label for="create-appointmentPatient" class="col-sm-2 control-label">患者就诊卡号<span style="font-size: 15px; color: red;">*</span></label>
                         <div class="col-sm-10" style="width: 300px;">
-                            <select class="form-control" id="create-appointmentPatient">
-                                <%--
+                            <select class="selectpicker" id="create-appointmentPatient" data-live-search="true">
+                                <option value="">请选择</option>
                                 <c:forEach items="${patientList}" var="p">
                                     <option value="${p.patientId}">${p.patientId}</option>
                                 </c:forEach>
-                                --%>
                             </select>
                         </div>
                     </div>
@@ -431,7 +465,8 @@
                     <div class="form-group">
                         <label for="create-appointmentDepartment" class="col-sm-2 control-label">开具科室</label>
                         <div class="col-sm-10" style="width: 300px;">
-                            <select class="form-control" id="create-appointmentDepartment">
+                            <select class="selectpicker" id="create-appointmentDepartment">
+                                <option value="">请选择</option>
                                 <c:forEach items="${departmentList}" var="d">
                                     <option value="${d.departmentId}">${d.departmentName}</option>
                                 </c:forEach>
@@ -440,12 +475,16 @@
 
                         <lable for="create-appointmentDoctor" class="col-sm-2 control-label">开具医生</lable>
                         <div class="col-sm-10" style="width: 300px;">
-                            <select class="form-control" id="create-appointmentDoctor">
+                            <select class="selectpicker" id="create-appointmentDoctor">
+                                <option value="">请选择</option>
                                 <c:forEach items="${doctorList}" var="doc">
                                     <option value="${doc.doctorId}">${doc.doctorName}</option>
                                 </c:forEach>
                             </select>
                         </div>
+                        <!--<div class="col-sm-1" style="display:table-cell;vertical-align:middle">-->
+                            <%--<span class="glyphicon glyphicon-remove"></span>--%>
+                        <!--</div>-->
                     </div>
 
                 </form>
@@ -466,7 +505,6 @@
         </div>
     </div>
 </div>
-
 
 <!--来个按钮组先-->
 <div id="btn-group" class="btn-group" data-toggle="buttons" style="position: relative; left: 10px; top: -10px;">
@@ -496,9 +534,9 @@
                 <tr style="color: #B3B3B3;">
                     <%--表头--%>
                     <td style="width:12.5%">创建时间</td>
-                    <td style="width:12.5%">所属患者</td>
                     <td style="width:12.5%">开具科室</td>
                     <td style="width:12.5%">开具医生</td>
+                    <td style="width:12.5%">所属患者</td>
                     <td style="width:12.5%">是否处理</td>
                     <td style="width:12.5%">处理时间</td>
                     <td style="width:12.5%">分配机器</td>

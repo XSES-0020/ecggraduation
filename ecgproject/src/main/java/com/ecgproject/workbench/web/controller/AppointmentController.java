@@ -50,6 +50,7 @@ public class AppointmentController {
         List<Doctor> doctorList = doctorService.queryAllDoctors();
         request.setAttribute("doctorList", doctorList);
 
+
         return "workbench/appointment/index";
     }
 
@@ -166,6 +167,9 @@ public class AppointmentController {
         UUIDUtils uuidUtils = new UUIDUtils();
         String appointmentId = uuidUtils.getUUID();
         appointment.setAppointmentId(appointmentId);
+
+        appointment.setAppointmentTaketime("");
+        appointment.setAppointmentMachine("");
 
         ReturnObject returnObject = new ReturnObject();
 

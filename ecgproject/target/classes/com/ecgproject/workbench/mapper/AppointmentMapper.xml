@@ -207,4 +207,21 @@
     where appointment_id=#{appointmentId}
   </update>
 
+  <!--根据使用次数查询-->
+  <select id="selectCountOfMachineGroupByTime" resultType="com.ecgproject.workbench.domain.BasicbarVO">
+    select count(*) as series,appointment_machine as xAxis
+    from appointment
+    <where>
+      appointment_machine IS NOT NULL and appointment_machine != ''
+    </where>
+    group by appointment_machine
+    ORDER BY series desc
+  </select>
+
+  <select id="selectCountOfAppointmentGroupByState" resultType="com.ecgproject.workbench.domain.DoughnutVO">
+    select count(*) as value,u.appointmentstate_describe as name
+    from appointment a
+    join appointmentstate u on a.appointment_status=u.appointmentstate_id
+    group by a.appointment_status
+  </select>
 </mapper>

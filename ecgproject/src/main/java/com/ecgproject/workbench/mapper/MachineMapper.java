@@ -88,4 +88,10 @@ public interface MachineMapper {
      * @return
      */
     List<DoughnutVO> selectCountOfMachineGroupByState();
+
+    /**
+     * 查所有
+     * @return
+     */
+    List<Machine> selectAllMachines();
 }

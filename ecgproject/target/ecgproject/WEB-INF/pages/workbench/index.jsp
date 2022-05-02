@@ -39,17 +39,59 @@
 
             window.open("workbench/main/index.do","workareaFrame");
 
-            //给确定按钮添加单击事件
+            //给确定退出系统按钮添加单击事件
             $("#logoutBtn").click(function () {
                //发送同步请求
                window.location.href="settings/qx/user/logout.do";
             });
+
+            //给确定更改密码按钮添加单击事件
+            $("#saveEditPwdBtn").click(function () {
+                var oldPwd = $.trim($("#oldPwd").val());
+                var newPwd = $.trim($("#newPwd").val());
+                var confirmPwd = $.trim($("#confirmPwd").val());
+                var userId = ${sessionScope.sessionUser.userId};
+
+                if(oldPwd!=${sessionScope.sessionUser.userPassword}){
+                    alert("原密码错误");
+                    return;
+                }
+                if(newPwd!=confirmPwd){
+                    alert("两次输入密码不一致");
+                    return;
+                }
+
+                $.ajax({
+                    url:'settings/qx/user/updatePwd.do',
+                    data:{
+                        userId:userId,
+                        userPassword:newPwd
+                    },
+                    type:'post',
+                    dataType:'json',
+                    success:function (data) {
+                        if(data.code=="1"){
+                            //关闭模态窗口
+                            $("#editPwdModal").modal("hide");
+                            //跳回登录页面
+                            window.location.href="settings/qx/user/logout.do";
+                        }else{
+                            //提示信息
+                            alert(data.message);
+                            //模态窗口不关
+                            $("#editPwdModal").modal("show");
+                        }
+                    }
+                });
+            });
+
         });
 
     </script>
 
 </head>
 <body>
+
 
 <!-- 我的资料 -->
 <div class="modal fade" id="myInformation" role="dialog">
@@ -114,7 +156,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="window.location.href='login.html';">更新</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="saveEditPwdBtn">更新</button>
             </div>
         </div>
     </div>
@@ -143,16 +185,14 @@
 
 <!-- 顶部 -->
 <div id="top" style="height: 50px; background-color: #015684; width: 100%;">
-    <div style="position: absolute; top: 5px; left: 3px; font-size: 30px; font-weight: 400; color: white; font-family: 'times new roman'">心电综合系统 &nbsp;<span style="font-size: 12px;">2022&nbsp;QIYIN</span></div>
-    <div style="position: absolute; top: 15px; right: 15px;">
+    <div style="position: absolute; top: 5px; left: 20px; font-size: 30px; font-weight: 400; color: white; font-family: 'times new roman'">心电综合系统 &nbsp;<span style="font-size: 12px;">2022&nbsp;QIYIN</span></div>
+    <div style="position: absolute; top: 15px; right: 40px;">
         <ul>
             <li class="dropdown user-dropdown">
                 <a href="javascript:void(0)" style="text-decoration: none; color: white;" class="dropdown-toggle" data-toggle="dropdown">
                     <span class="glyphicon glyphicon-user"></span> ${sessionScope.sessionUser.userName} <span class="caret"></span>
                 </a>
-                <ul class="dropdown-menu">
-                    <li><a href="settings/index.html"><span class="glyphicon glyphicon-wrench"></span> 系统设置</a></li>
-                    <li><a href="javascript:void(0)" data-toggle="modal" data-target="#myInformation"><span class="glyphicon glyphicon-file"></span> 我的资料</a></li>
+                <ul class="dropdown-menu" style="left: -60px;width: 100px;">
                     <li><a href="javascript:void(0)" data-toggle="modal" data-target="#editPwdModal"><span class="glyphicon glyphicon-edit"></span> 修改密码</a></li>
                     <li><a href="javascript:void(0);" data-toggle="modal" data-target="#exitModal"><span class="glyphicon glyphicon-off"></span> 退出</a></li>
                 </ul>
@@ -170,24 +210,29 @@
         <ul id="no1" class="nav nav-pills nav-stacked">
 
             <li class="liClass"><a href="workbench/main/index.do" target="workareaFrame"><span class="glyphicon glyphicon-home"></span> 使用手册</a></li>
-            <li class="liClass"><a href="workbench/patient/index.do" target="workareaFrame"><span class="glyphicon glyphicon-tag"></span> 患者列表</a></li>
-            <li class="liClass"><a href="workbench/doctor/index.do" target="workareaFrame"><span class="glyphicon glyphicon-time"></span> 医生列表</a></li>
-            <li class="liClass"><a href="workbench/department/index.do" target="workareaFrame"><span class="glyphicon glyphicon-user"></span> 科室列表</a></li>
-            <li class="liClass"><a href="workbench/appointment/index.do" target="workareaFrame"><span class="glyphicon glyphicon-play-circle"></span> 预约列表</a></li>
-            <li class="liClass"><a href="workbench/machine/index.do" target="workareaFrame"><span class="glyphicon glyphicon-search"></span> 机器列表</a></li>
-            <li class="liClass"><a href="workbench/ecg/index.do" target="workareaFrame"><span class="glyphicon glyphicon-user"></span> ecg文件</a></li>
-            <li class="liClass"><a href="contacts/index.html" target="workareaFrame"><span class="glyphicon glyphicon-earphone"></span> 联系人</a></li>
-            <li class="liClass"><a href="transaction/index.html" target="workareaFrame"><span class="glyphicon glyphicon-usd"></span> 交易（商机）</a></li>
-            <li class="liClass"><a href="visit/index.html" target="workareaFrame"><span class="glyphicon glyphicon-phone-alt"></span> 售后回访</a></li>
+            <li class="liClass">
+                <a href="#no3" class="collapsed" data-toggle="collapse"><span class="glyphicon glyphicon-stats"></span> 基础信息管理</a>
+                <ul id="no3" class="nav nav-pills nav-stacked collapse">
+                    <li class="liClass"><a href="workbench/patient/index.do" target="workareaFrame">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right"></span> 患者列表</a></li>
+                    <li class="liClass"><a href="workbench/doctor/index.do" target="workareaFrame">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right"></span> 医生列表</a></li>
+                    <li class="liClass"><a href="workbench/department/index.do" target="workareaFrame">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right"></span> 科室列表</a></li>
+                    <li class="liClass"><a href="workbench/machine/index.do" target="workareaFrame">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right"></span> 机器列表</a></li>
+                </ul>
+            </li>
+            <li class="liClass"><a href="workbench/appointment/index.do" target="workareaFrame"><span class="glyphicon glyphicon-play-circle"></span> 预约管理</a></li>
+            <li class="liClass"><a href="workbench/ecg/index.do" target="workareaFrame"><span class="glyphicon glyphicon-user"></span> ecg文件管理</a></li>
             <li class="liClass">
                 <a href="#no2" class="collapsed" data-toggle="collapse"><span class="glyphicon glyphicon-stats"></span> 统计图表</a>
                 <ul id="no2" class="nav nav-pills nav-stacked collapse">
                     <li class="liClass"><a href="workbench/chart/machine/index.do" target="workareaFrame">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right"></span> 机器图表</a></li>
-                    <li class="liClass"><a href="chart/clue/index.html" target="workareaFrame">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right"></span> 线索统计图表</a></li>
+                    <li class="liClass"><a href="workbench/chart/appointment/index.do" target="workareaFrame">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right"></span> 预约图表</a></li>
                     <li class="liClass"><a href="chart/customerAndContacts/index.html" target="workareaFrame">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right"></span> 客户和联系人统计图表</a></li>
                     <li class="liClass"><a href="chart/transaction/index.html" target="workareaFrame">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right"></span> 交易统计图表</a></li>
                 </ul>
             </li>
+            <li class="liClass"><a href="contacts/index.html" target="workareaFrame"><span class="glyphicon glyphicon-earphone"></span> 联系人</a></li>
+            <li class="liClass"><a href="transaction/index.html" target="workareaFrame"><span class="glyphicon glyphicon-usd"></span> 交易（商机）</a></li>
+            <li class="liClass"><a href="visit/index.html" target="workareaFrame"><span class="glyphicon glyphicon-phone-alt"></span> 售后回访</a></li>
             <li class="liClass"><a href="javascript:void(0);" target="workareaFrame"><span class="glyphicon glyphicon-file"></span> 报表</a></li>
             <li class="liClass"><a href="javascript:void(0);" target="workareaFrame"><span class="glyphicon glyphicon-shopping-cart"></span> 销售订单</a></li>
             <li class="liClass"><a href="javascript:void(0);" target="workareaFrame"><span class="glyphicon glyphicon-send"></span> 发货单</a></li>

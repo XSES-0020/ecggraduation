@@ -175,7 +175,13 @@
     from patient
     <where>
       <if test="name!=null and name!=''">
-        patient_name like "%"#{name}"%"
+        and patient_name like "%"#{name}"%"
+      </if>
+      <if test="id!=null and id!=''">
+        and patient_id like '%' #{id} '%'
+      </if>
+      <if test="idcard!=null and idcard!=''">
+        and patient_idcard like '%' #{idcard} '%'
       </if>
     </where>
     order by patient_createtime desc
@@ -187,7 +193,13 @@
     from patient
     <where>
       <if test="name!=null and name!=''">
-        patient_name like "%"#{name}"%"
+        and patient_name like "%"#{name}"%"
+      </if>
+      <if test="id!=null and id!=''">
+        and patient_id like '%' #{id} '%'
+      </if>
+      <if test="idcard!=null and idcard!=''">
+        and patient_idcard like '%' #{idcard} '%'
       </if>
     </where>
   </select>

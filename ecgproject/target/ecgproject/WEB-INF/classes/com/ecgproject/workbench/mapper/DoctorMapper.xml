@@ -157,12 +157,14 @@
   </update>
 
   <select id="selectDoctorByConditionForPage" parameterType="map" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"></include>
-    from doctor
+    select d.doctor_id as doctor_id,d.doctor_name as doctor_name,d.doctor_phone as doctor_phone,
+    d.doctor_gender as doctor_gender,d.doctor_title as doctor_title,d.doctor_age as doctor_age,
+    u.department_name as doctor_department
+    from doctor d
+    left join department u on d.doctor_department=u.department_id
     <where>
       <if test="name!=null and name!=''">
-        doctor_name like "%"#{name}"%"
+        d.doctor_name like "%"#{name}"%"
       </if>
     </where>
     limit #{beginNo},#{pageSize}

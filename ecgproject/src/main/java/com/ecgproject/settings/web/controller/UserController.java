@@ -53,6 +53,32 @@ public class UserController {
         return "settings/qx/user/forget";
     }
 
+    @RequestMapping("/settings/qx/user/updatePwd.do")
+    public @ResponseBody Object updatePwd(String userId,String userPassword){
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("userPassword",userPassword);
+
+        ReturnObject returnObject = new ReturnObject();
+
+        try{
+            int ret = userService.updateUserPwdById(map);
+            if(ret>0){
+                returnObject.setCode(Constants.RETURN_OBJECT_CODE_SUCCESS);
+            }else{
+                returnObject.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
+                returnObject.setMessage("系统忙碌，请稍后重试……");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            returnObject.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
+            returnObject.setMessage("系统忙碌，请稍后重试……");
+        }
+
+        return returnObject;
+
+    }
+
     @RequestMapping("/settings/qx/user/login.do")
     public @ResponseBody Object login(String loginAct, String loginPwd, HttpServletRequest request, HttpSession session){
         //封装参数
@@ -61,22 +87,27 @@ public class UserController {
         map.put("loginPwd",loginPwd);
         //调用service方法，查询用户
         User user = userService.queryUserByLoginActAndPwd(map);
-        //根据查询结果生成相应信息
+        //根据查询结果生成响应信息
+        Map<String,Object> ret = new HashMap<>();
+
         ReturnObject returnObject = new ReturnObject();
         if(user==null){
             //登陆失败 用户名/密码错误
-            returnObject.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
-            returnObject.setMessage("用户名或密码错误");
+            ret.put("code","0");
+            ret.put("message","用户名或密码错误");
+            //returnObject.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
+            //returnObject.setMessage("用户名或密码错误");
         }else{//登陆成功
             /*获取ip地址
             request.getRemoteAddr();
             */
-            returnObject.setCode(Constants.RETURN_OBJECT_CODE_SUCCESS);
-
+            //returnObject.setCode(Constants.RETURN_OBJECT_CODE_SUCCESS);
+            ret.put("code","1");
+            ret.put("role",user.getUserType());
             //user保存到session
             session.setAttribute(Constants.SESSION_USER,user);
         }
-        return returnObject;
+        return ret;
     }
 
     @RequestMapping("/settings/qx/user/register.do")

@@ -67,6 +67,8 @@
                         htmlStr += "<td>" + obj.departmentAddress + "</td>";
                         htmlStr += "</tr>";
 
+                    });
+
                         //显示
                         $("#tBody").html(htmlStr);
 
@@ -104,7 +106,7 @@
                                 queryDepartmentByConditionForPage(pageObj.currentPage, pageObj.rowsPerPage);
                             }
                         });
-                    });
+
                 }
             });
         }
@@ -128,27 +130,6 @@
                     <div class="input-group">
                         <div class="input-group-addon">名称</div>
                         <input class="form-control" type="text" id="queryName">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">所有者</div>
-                        <input class="form-control" type="text" id="query-owner">
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">开始日期</div>
-                        <input class="form-control" type="text" id="query-startDate" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">结束日期</div>
-                        <input class="form-control" type="text" id="query-endDate">
                     </div>
                 </div>
 

@@ -69,10 +69,12 @@ public class PatientController {
     }
 
     @RequestMapping("/workbench/patient/queryPatientByConditionForPage.do")
-    public @ResponseBody Object queryPatientByConditionForPage(String name,int pageNo,int pageSize){
+    public @ResponseBody Object queryPatientByConditionForPage(String name,String id,String idcard,int pageNo,int pageSize){
         //封装
         Map<String,Object> map = new HashMap<>();
         map.put("name",name);
+        map.put("id",id);
+        map.put("idcard",idcard);
         map.put("beginNo",(pageNo-1)*pageSize);
         map.put("pageSize",pageSize);
 

@@ -67,4 +67,11 @@ public interface UserMapper {
      */
     int insertUser(User user);
 
+    /**
+     * 根据id改密码
+     * @param map
+     * @return
+     */
+    int updateUserPwdById(Map<String,Object> map);
+
 }

@@ -26,8 +26,21 @@
     <script type="text/javascript" src="jquery/bs_pagination-master/js/jquery.bs_pagination.min.js"></script>
     <script type="text/javascript" src="jquery/bs_pagination-master/localization/en.js"></script>
 
+    <!--引入select插件-->
+    <link href="jquery/bootstrap-select-1.13.14/dist/css/bootstrap-select.min.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="jquery/bootstrap-select-1.13.14/dist/js/bootstrap-select.js"></script>
+
     <script type="text/javascript">
         $(function(){
+            //下拉框属性
+            $(".selectpicker").selectpicker({
+                language:'zh-CN',
+                width:'100%',
+                size:5,
+                style:'',
+                styleBase:'form-control'
+            });
+
             //给保存按钮加
             $("#importEcgBtn").click(function () {
                //收集参数
@@ -81,22 +94,39 @@
             //查看按钮
             $("#tBody").on("click","button[class='btn btn-primary btn-sm']",function () {
                 var id = this.value;
+                $("#showEcgModal").modal("show");
+                $("#Image").attr("src",'workbench/ecg/showEcgById.do?ecgId='+id);
+            });
 
-                $.ajax({
-                    url:'workbench/ecg/showEcgById.do',
-                    data:{
-                        ecgId:id
-                    },
-                    type:'post',
-                    dataType:'arraybuffer',
-                    success:function (data) {
-                        $("#showEcgModal").modal("show");
-                        //$("#Image").attr("src","data:image/png;base64,"+data)
-                    },
-                    error:function (data) {
-                        alert("响应失败");
-                    }
-                })
+            //删除按钮
+            $("#tBody").on("click","button[class='btn btn-danger btn-sm']",function () {
+                var id = this.value;
+                if(window.confirm("是否确认删除？")){
+                    $.ajax({
+                        url:'workbench/ecg/deleteEcgById.do',
+                        data:{
+                            ecgId:id
+                        },
+                        type:'post',
+                        dataType:'json',
+                        success:function (data){
+                            if(data.code=="1"){
+                                //刷新
+                                queryEcgByConditionForPage(1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
+                            }else{
+                                //提示
+                                alert(data.message);
+                            }
+                        }
+                    });
+                }
+            });
+
+            //测试 关闭模态窗口清空数据
+            $("#importEcgModal").on("hidden.bs.modal",function () {
+                $("#ecgFile").val(null);
+                document.getElementById("import-patientId").options.selectedIndex=0;
+                $("#import-patientId").selectpicker('refresh');
             });
         });
 
@@ -169,15 +199,17 @@
 </head>
 <body>
 
+<!--查看心电图的模态窗口-->
 <div class="modal fade" id="showEcgModal" role="dialog">
-    <div class="modal-dialog" role="document" style="width: 85%;">
-        <div class="modal-content">
-            <img id="Image" alt="Base64 encoded image" width="100" height="100"/>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width: 800px;height: 800px;">
+            <img id="Image" alt="Base64 encoded image" height="100%" width="100%"/>
         </div>
     </div>
 </div>
 
-<!-- 添加患者的模态窗口 -->
+
+<!-- 导入心电文件的模态窗口 -->
 <div class="modal fade" id="importEcgModal" role="dialog">
     <div class="modal-dialog" role="document" style="width: 85%;">
         <div class="modal-content">
@@ -188,29 +220,36 @@
                 <h4 class="modal-title" id="myModalLabel1">上传ecg文件窗口</h4>
             </div>
             <div class="modal-body" style="height: 350px;">
+                <%--<form id="importEcgForm" class="form-horizontal" role="form">--%>
+                    <div style="position: relative;top: 20px; left: 50px;">
+                        请选择要上传的文件：<small style="color: gray;">[仅支持.xml]</small>
+                    </div>
+                    <div style="position: relative;top: 40px; left: 50px;">
+                        <input type="file" id="ecgFile">
+                    </div>
+                    <div style="position: relative;top: 100px; left: 50px; width:20%">
+                        所属的患者就诊卡号：
+                    </div>
+                    <div style="position: relative;top:40px; left: 50px;width: 20%">
+                        <select class="selectpicker" id="import-patientId" data-live-search="true">
+                            <option value=''>请选择</option>
+                            <c:forEach items="${patientList}" var="p">
+                                <option value="${p.patientId}">${p.patientId}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
 
-                <div style="position: relative;top: 20px; left: 50px;">
-                    请选择要上传的文件：<small style="color: gray;">[仅支持.xml]</small>
-                </div>
-                <div style="position: relative;top: 40px; left: 50px;">
-                    <input type="file" id="ecgFile">
-                </div>
-                <div style="position: relative;top: 40px; left: 50px; width:20%">
-                    所属的患者就诊卡号：
-                </div>
-                <div style="position: relative;top:40px; left: 50px;width: 20%">
-                    <input type="text" class="form-control" id="import-patientId">
-                </div>
+                    <div style="position: relative; width: 400px; height: 320px; left: 45% ; top: -40px;" >
+                        <h3>重要提示</h3>
+                        <ul>
+                            <li>操作仅针对HL7-ACEG，仅支持后缀名为XML的文件。</li>
+                            <li>请确认您的文件大小不超过5MB。</li>
+                            <li>默认情况下，字符编码是UTF-8 (统一码)，请确保您导入的文件使用的是正确的字符编码方式。</li>
+                            <li>建议您在导入真实数据之前用测试文件测试文件导入功能。</li>
+                        </ul>
+                    </div>
+                <%--</form>--%>
 
-                <div style="position: relative; width: 400px; height: 320px; left: 45% ; top: -40px;" >
-                    <h3>重要提示</h3>
-                    <ul>
-                        <li>操作仅针对HL7-ACEG，仅支持后缀名为XML的文件。</li>
-                        <li>请确认您的文件大小不超过5MB。</li>
-                        <li>默认情况下，字符编码是UTF-8 (统一码)，请确保您导入的文件使用的是正确的字符编码方式。</li>
-                        <li>建议您在导入真实数据之前用测试文件测试文件导入功能。</li>
-                    </ul>
-                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -227,6 +266,8 @@
             <h3>ECG文件列表</h3>
         </div>
     </div>
+
+
 </div>
 
 <div style="position: relative; top: -20px; left: 0px; width: 100%; height: 100%;">
@@ -237,29 +278,8 @@
 
                 <div class="form-group">
                     <div class="input-group">
-                        <div class="input-group-addon">名称</div>
+                        <div class="input-group-addon">就诊卡号</div>
                         <input class="form-control" type="text" id="patientId">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">所有者</div>
-                        <input class="form-control" type="text" id="query-owner">
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">开始日期</div>
-                        <input class="form-control" type="text" id="query-startDate" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">结束日期</div>
-                        <input class="form-control" type="text" id="query-endDate">
                     </div>
                 </div>
 

@@ -11,5 +11,8 @@ public interface UserService {
     List<User> queryAllUsers();
 
     int saveCreateUser(User user);
+
+    //更新密码
+    int updateUserPwdById(Map<String,Object> map);
 }
 

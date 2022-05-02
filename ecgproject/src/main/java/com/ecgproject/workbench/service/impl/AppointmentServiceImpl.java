@@ -1,6 +1,8 @@
 package com.ecgproject.workbench.service.impl;
 
 import com.ecgproject.workbench.domain.Appointment;
+import com.ecgproject.workbench.domain.BasicbarVO;
+import com.ecgproject.workbench.domain.DoughnutVO;
 import com.ecgproject.workbench.mapper.AppointmentMapper;
 import com.ecgproject.workbench.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +47,15 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public Appointment queryAppointmentById(String appointmentId) {
         return appointmentMapper.selectAppointmentById(appointmentId);
+    }
+
+    @Override
+    public List<BasicbarVO> queryCountOfMachineGroupByTime() {
+        return appointmentMapper.selectCountOfMachineGroupByTime();
+    }
+
+    @Override
+    public List<DoughnutVO> queryCountOfAppointmentGroupByState() {
+        return appointmentMapper.selectCountOfAppointmentGroupByState();
     }
 }

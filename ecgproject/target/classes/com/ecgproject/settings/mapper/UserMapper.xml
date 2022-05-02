@@ -143,6 +143,12 @@
       user_describe = #{userDescribe,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
+
+  <update id="updateUserPwdById" parameterType="map">
+    update user
+    set user_password = #{userPassword}
+    where user_id = #{userId}
+  </update>
   
   <select id="selectUserByLoginActAndPwd" parameterType="map" resultMap="BaseResultMap">
     select

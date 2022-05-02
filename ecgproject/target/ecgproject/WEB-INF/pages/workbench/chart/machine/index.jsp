@@ -20,7 +20,6 @@
     <script type="text/javascript" src="jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
     <!--引入echarts插件-->
     <script type="text/javascript" src="jquery/echarts/echarts.min.js"></script>
-    <title>演示echarts</title>
     <script type="text/javascript">
         $(function () {
             $.ajax({
@@ -29,9 +28,9 @@
                 dataType:'json',
                 success:function (data) {
                     //调用工具函数，显示图
-                    var myChart = echarts.init(document.getElementById('main'));
+                    var myChart1 = echarts.init(document.getElementById('chart1'));
 
-                    var option = {
+                    var option1 = {
                         title:{
                           text:'机器状态分布图',
                           subtext: '各个状态机器数的占比'
@@ -73,7 +72,39 @@
                         ]
                     };
 
-                    myChart.setOption(option);
+                    myChart1.setOption(option1);
+                }
+            });
+
+            $.ajax({
+                url:'workbench/chart/machine/queryCountOfMachineGroupByTime.do',
+                type:'post',
+                dataType:'json',
+                success:function (data) {
+                    //调用工具函数，显示图
+                    var myChart2 = echarts.init(document.getElementById('chart2'));
+
+                    var option2 = {
+                        title:{
+                            text:'机器使用次数图',
+                            subtext: '使用次数前五的机器'
+                        },
+                        xAxis: {
+                            type: 'category',
+                            data: data.xAxis
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: [
+                            {
+                                data: data.series,
+                                type: 'bar'
+                            }
+                        ]
+                    };
+
+                    myChart2.setOption(option2);
                 }
             });
 
@@ -82,9 +113,10 @@
     </script>
 </head>
 <body>
-    <div>
-        <div id="main" style="left: 5%;top: 5%;width: 50%;height:50% "></div>
 
+    <div>
+        <div class="col-sm-6" id="chart1" style="top: 5%;width: 50%;height:50% "></div>
+        <div class="col-sm-6" id="chart2" style="top: 5%;width: 50%;height:50% "></div>
     </div>
 
 </body>

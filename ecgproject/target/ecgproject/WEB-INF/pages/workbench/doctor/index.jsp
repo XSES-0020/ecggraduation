@@ -66,13 +66,38 @@
                         htmlStr += "<tr class=\"doctor\">";
                         htmlStr += "<td>" + obj.doctorId + "</td>";
                         htmlStr += "<td>" + obj.doctorName + "</td>";
-                        htmlStr += "<td>" + obj.doctorAge + "</td>";
-                        htmlStr += "<td>" + obj.doctorGender + "</td>";
-                        htmlStr += "<td>" + obj.doctorDepartment + "</td>";
-                        htmlStr += "<td>" + obj.doctorTitle + "</td>";
-                        htmlStr += "<td>" + obj.doctorPhone + "</td>";
+                        if((obj.doctorAge!=null)&&(obj.doctorAge!="")){
+                            htmlStr += "<td>" + obj.doctorAge + "</td>";
+                        }else{
+                            htmlStr += "<td></td>";
+                        }
+                        if((obj.doctorGender!=null)&&(obj.doctorGender!="")){
+                            if(obj.doctorGender==1){
+                                htmlStr += "<td>女</td>";
+                            }else{
+                                htmlStr += "<td>男</td>";
+                            }
+                        }else{
+                            htmlStr += "<td></td>";
+                        }
+                        if((obj.doctorDepartment!=null)&&(obj.doctorDepartment!="")){
+                            htmlStr += "<td>" + obj.doctorDepartment + "</td>";
+                        }else{
+                            htmlStr += "<td></td>";
+                        }
+                        if((obj.doctorTitle!=null)&&(obj.doctorTitle!="")){
+                            htmlStr += "<td>" + obj.doctorTitle + "</td>";
+                        }else{
+                            htmlStr += "<td></td>";
+                        }
+                        if((obj.doctorPhone!=null)&&(obj.doctorPhone!="")){
+                            htmlStr += "<td>" + obj.doctorPhone + "</td>";
+                        }else{
+                            htmlStr += "<td></td>";
+                        }
                         htmlStr += "</tr>";
 
+                    });
                         //显示
                         $("#tBody").html(htmlStr);
 
@@ -110,7 +135,7 @@
                                 queryDoctorByConditionForPage(pageObj.currentPage, pageObj.rowsPerPage);
                             }
                         });
-                    });
+
                 }
             });
         }
@@ -134,27 +159,6 @@
                     <div class="input-group">
                         <div class="input-group-addon">名称</div>
                         <input class="form-control" type="text" id="queryName">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">所有者</div>
-                        <input class="form-control" type="text" id="query-owner">
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">开始日期</div>
-                        <input class="form-control" type="text" id="query-startDate" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">结束日期</div>
-                        <input class="form-control" type="text" id="query-endDate">
                     </div>
                 </div>
 
