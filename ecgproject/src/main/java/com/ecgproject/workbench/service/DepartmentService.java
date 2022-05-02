@@ -14,4 +14,16 @@ public interface DepartmentService {
 
     //查所有
     List<Department> queryAllDepartments();
+
+    //加
+    int insertDepartment(Department department);
+
+    //改
+    int updateDepartment(Department department);
+
+    //查一个
+    Department queryDepartmentById(String departmentId);
+
+    //删
+    int deleteDepartmentById(String departmentId);
 }

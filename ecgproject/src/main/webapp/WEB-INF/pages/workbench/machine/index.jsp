@@ -243,7 +243,7 @@
                 success: function (data) {
                     var htmlStr = "";
                     $.each(data.machineList, function (index, obj) {
-                        htmlStr += "<tr class=\"active\">";
+                        htmlStr += "<tr class=\"machine\">";
                         htmlStr += "<td>" + obj.machineId + "</td>";
                         htmlStr += "<td>" + obj.machineState + "</td>";
                         htmlStr += "<td><button type=\"button\" class=\"btn btn-primary btn-sm\" value=\"" + obj.machineId + "\">修改</button>";
@@ -393,6 +393,11 @@
 </div>
 
 <div>
+    <div class="col-sm-1">
+        <div style="position: relative; top: -10px;">
+            <button type="button" class="btn btn-primary" id="createMachineBtn" style="position: relative; top: 18%;"><span class="glyphicon glyphicon-plus"></span> 添加</button>
+        </div>
+    </div>
     <div class="col-sm-3">
         <!--来个按钮组先-->
         <div id="btn-group" class="btn-group" data-toggle="buttons" style="position: relative; top: -10px;">
@@ -411,12 +416,6 @@
             <label class="btn btn-default">
                 <input type="radio" name="options" value="option5">故障
             </label>
-        </div>
-    </div>
-
-    <div class="col-sm-1">
-        <div style="position: relative; top: -10px;">
-            <button type="button" class="btn btn-primary" id="createMachineBtn" style="position: relative; top: 18%;"><span class="glyphicon glyphicon-plus"></span> 添加</button>
         </div>
     </div>
 </div>
@@ -438,6 +437,8 @@
 
             </form>
         </div>--%>
+
+
 
         <div style="position: relative;top: 10px;">
             <table class="table table-hover">

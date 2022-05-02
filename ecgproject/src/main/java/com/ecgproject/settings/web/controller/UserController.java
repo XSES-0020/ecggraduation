@@ -2,6 +2,7 @@ package com.ecgproject.settings.web.controller;
 
 import com.ecgproject.commons.constants.Constants;
 import com.ecgproject.commons.domain.ReturnObject;
+import com.ecgproject.commons.utils.DateUtils;
 import com.ecgproject.settings.domain.Staff;
 import com.ecgproject.settings.domain.User;
 import com.ecgproject.settings.service.StaffService;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -26,6 +28,12 @@ public class UserController {
 
     @Autowired
     private StaffService staffService;
+
+    @RequestMapping("/workbench/user/userAdmin.do")
+    public String userAdmin(){
+        return "workbench/user/userAdmin";
+    }
+
 
     /**
      * url要和当前controller访问的页面资源目录保持一致，好找
@@ -53,6 +61,12 @@ public class UserController {
         return "settings/qx/user/forget";
     }
 
+    /**
+     * 管理员的重置密码和这个用的是一个url，懒得写了
+     * @param userId
+     * @param userPassword
+     * @return
+     */
     @RequestMapping("/settings/qx/user/updatePwd.do")
     public @ResponseBody Object updatePwd(String userId,String userPassword){
         Map<String,Object> map = new HashMap<>();
@@ -106,6 +120,7 @@ public class UserController {
             ret.put("role",user.getUserType());
             //user保存到session
             session.setAttribute(Constants.SESSION_USER,user);
+            request.setAttribute("user",user);
         }
         return ret;
     }
@@ -116,53 +131,49 @@ public class UserController {
         System.out.println(userId);*/
 
         ReturnObject returnObject = new ReturnObject();
-        try{
-            //先调staff的service查一下有没有注册过
-            Staff staff = staffService.queryStaffByRegisterAct(userId);
-            if(staff!=null){
-                int status = staff.getStaffStatus();
-                if(status==1){
-                    //有该员工且已注册
-                    returnObject.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
-                    returnObject.setMessage("该工号已被注册");
-                }else if(status==0){
-                    //有该员工且可以注册
-                    //封装参数
-                    String name = staff.getStaffName();
-                    User user = new User();
-                    user.setUserId(userId);
-                    user.setUserPassword(userPassword);
-                    user.setUserCreatetime(new Date());
-                    user.setUserType(0);
-                    user.setUserName(name);
-
-                    //调用service层注册
-                    try{
-                        int ret1 = userService.saveCreateUser(user);
-                        int ret2 = staffService.updateStatusById(userId);
-                        if(ret1>0&&ret2>0){
-                            returnObject.setCode(Constants.RETURN_OBJECT_CODE_SUCCESS);
-                        }else{
-                            returnObject.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
-                            returnObject.setMessage("系统忙碌，请稍后重试……");
-                        }
-                    }catch (Exception e){
-                        e.printStackTrace();
-                        returnObject.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
-                        returnObject.setMessage("系统忙碌，请稍后重试……");
-                    }
-                }
-            } else{
-                //没有这号人
-                returnObject.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
-                returnObject.setMessage("该工号不属于医院员工");
-            }
-        }catch (Exception e){
-            e.printStackTrace();
+        //先调staff的service查一下有没有注册过
+        Staff staff = staffService.queryStaffByRegisterAct(userId);
+        if(staff==null){
             returnObject.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
-            returnObject.setMessage("系统忙碌，请稍后重试……");
-        }
+            returnObject.setMessage("该工号不属于医院员工");
+        }else{
+            String status = staff.getStaffStatus();
 
+            if(status.equals("0")){
+                //设置用户姓名
+                String name = staff.getStaffName();
+                //封装参数
+                User user = new User();
+                user.setUserId(userId);
+
+                user.setUserPassword(userPassword);
+
+                DateUtils dateUtils = new DateUtils();
+                Date datetime = new Date();
+                String date = dateUtils.formateDateTime(datetime);
+                user.setUserCreatetime(date);
+
+                user.setUserType("0");
+                user.setUserName(name);
+
+                int ret1 = userService.saveCreateUser(user);
+                Map<String,Object> map = new HashMap<>();
+                map.put("staffId",userId);
+                map.put("staffStatus","1");
+                int ret2 = staffService.updateStatusById(map);
+
+                if(ret1>0&&ret2>0){
+                    returnObject.setCode(Constants.RETURN_OBJECT_CODE_SUCCESS);
+                }else{
+                    returnObject.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
+                    returnObject.setMessage("系统忙碌，请稍后重试……");
+                }
+            }else{
+                //有该员工且已注册
+                returnObject.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
+                returnObject.setMessage("该工号已被注册");
+            }
+        }
         return returnObject;
     }
 
@@ -175,5 +186,87 @@ public class UserController {
 
         //跳转首页，这里用重定向（借助springmvc框架）
         return "redirect:/";
+    }
+
+    @RequestMapping("/settings/qx/user/editUser.do")
+    public @ResponseBody Object editUser(String userId,String userPhone,String userDescribe){
+        Map<String,Object> map = new HashMap<>();
+        map.put("userId",userId);
+        map.put("userPhone",userPhone);
+        map.put("userDescribe",userDescribe);
+
+        ReturnObject returnObject = new ReturnObject();
+        try{
+            int ret = userService.updateUserById(map);
+            if(ret>0){
+                returnObject.setCode(Constants.RETURN_OBJECT_CODE_SUCCESS);
+            }else{
+                returnObject.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
+                returnObject.setMessage("系统忙碌，请稍后重试……");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            returnObject.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
+            returnObject.setMessage("系统忙碌，请稍后重试……");
+        }
+
+        return returnObject;
+
+    }
+
+    @RequestMapping("/workbench/user/queryUserById.do")
+    public @ResponseBody Object queryUserById(String userId){
+        User user = userService.queryUserById(userId);
+        return user;
+    }
+
+    @RequestMapping("/workbench/user/queryUserByConditionForPage.do")
+    public @ResponseBody Object queryUserByConditionForPage(String name,String id,String type,int pageNo,int pageSize){
+        //封装
+        Map<String,Object> map = new HashMap<>();
+        map.put("name",name);
+        map.put("id",id);
+        map.put("type",type);
+        map.put("beginNo",(pageNo-1)*pageSize);
+        map.put("pageSize",pageSize);
+
+        //调service查数据
+        List<User> userList = userService.queryUserByConditionForPage(map);
+        int totalRows = userService.queryCountOfUserByCondition(map);
+
+        //根据查询结果生成相应信息
+        Map<String,Object> retMap = new HashMap<>();
+        retMap.put("userList",userList);
+        retMap.put("totalRows",totalRows);
+
+        return retMap;
+
+    }
+
+    @RequestMapping("/workbench/user/deleteUserById.do")
+    public @ResponseBody Object deleteUserById(String userId){
+        ReturnObject returnObject = new ReturnObject();
+        try{
+            int ret1 = userService.deleteUserById(userId);
+            //更新staff表注册状态
+            Map<String,Object> map = new HashMap<>();
+            map.put("staffId",userId);
+            map.put("staffStatus","0");
+            int ret2 = staffService.updateStatusById(map);
+
+
+            if(ret1>0&&ret2>0){
+                returnObject.setCode(Constants.RETURN_OBJECT_CODE_SUCCESS);
+            }else{
+                returnObject.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
+                returnObject.setMessage("系统忙碌，请稍后重试……");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            returnObject.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
+            returnObject.setMessage("系统忙碌，请稍后重试……");
+        }
+
+        return returnObject;
     }
 }

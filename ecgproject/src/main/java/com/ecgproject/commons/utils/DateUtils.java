@@ -20,6 +20,11 @@ public class DateUtils {
         return dateStr;
     }
 
+    /**
+     * 解析心电图时间的
+     * @param str
+     * @return
+     */
     public static String formateForHl7(String str){
         String dateStr = str.substring(0,4)+"/"+str.substring(4,6)+"/"+str.substring(6,8)+" "+str.substring(8,10)+":"+str.substring(10,12)+":"+str.substring(12,14);
         return dateStr;

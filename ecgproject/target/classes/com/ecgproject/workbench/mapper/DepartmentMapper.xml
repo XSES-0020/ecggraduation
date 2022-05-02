@@ -118,6 +118,7 @@
         department_name like "%"#{name}"%"
       </if>
     </where>
+    order by department_id asc
     limit #{beginNo},#{pageSize}
   </select>
 
@@ -135,5 +136,6 @@
     select
     <include refid="Base_Column_List"></include>
     from department
+    order by department_id asc
   </select>
 </mapper>

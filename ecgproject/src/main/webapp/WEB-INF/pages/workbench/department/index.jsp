@@ -121,10 +121,9 @@
     </div>
 </div>
 
-<div style="position: relative; top: -20px; left: 0px; width: 100%; height: 100%;">
-    <div style="width: 100%; position: absolute;top: 5px; left: 10px;">
-        <div class="btn-toolbar" role="toolbar" style="height: 80px;">
-            <form class="form-inline" role="form" style="position: relative;top: 8%; left: 5px;">
+<div class="btn-toolbar" role="toolbar">
+    <div class="col-sm-3">
+            <form class="form-inline" role="form" style="position: relative;top: -10px; left: 5px;">
 
                 <div class="form-group">
                     <div class="input-group">
@@ -136,9 +135,13 @@
                 <button type="button" class="btn btn-default" id="queryDepartmentBtn">查询</button>
 
             </form>
-        </div>
+    </div>
+</div>
 
-        <div style="position: relative;top: 10px;">
+<div style="position: relative; top: -20px; left: 0px; width: 100%; height: 100%;">
+    <div style="width: 100%; position: absolute; left: 10px;">
+
+        <div style="position: relative;">
             <table class="table table-hover">
                 <thead>
                 <tr style="color: #B3B3B3;">

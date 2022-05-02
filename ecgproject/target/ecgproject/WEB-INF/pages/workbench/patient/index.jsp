@@ -120,7 +120,7 @@
                 queryPatientByConditionForPage(1,$("#demo_pag1").bs_pagination('getOption','rowsPerPage'));
             });
 
-            //不太确定 试一下吧
+            //删除按钮
             $("#tBody").on("click","button[class='btn btn-danger btn-sm']",function () {
                 var id = this.value;
 
@@ -261,7 +261,7 @@
                     //总条数
                     var htmlStr = "";
                     $.each(data.patientList, function (index, obj) {
-                        htmlStr += "<tr class=\"active\">";
+                        htmlStr += "<tr class=\"patient\">";
                         htmlStr += "<td>" + obj.patientId + "</td>";
                         htmlStr += "<td>" + obj.patientName + "</td>";
                         htmlStr += "<td>" + obj.patientAge + "</td>";
@@ -498,39 +498,46 @@
 <div style="position: relative; top: -20px; left: 0px; width: 100%; height: 100%;">
     <div style="width: 100%; position: absolute;top: 5px; left: 10px;">
         <div class="btn-toolbar" role="toolbar" style="height: 80px;">
-            <form class="form-inline" role="form" style="position: relative;top: 8%; left: 5px;">
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">患者姓名</div>
-                        <input class="form-control" type="text" id="queryName">
+            <div class="col-sm-1">
+                <div class="btn-toolbar" role="toolbar" style="height: 50px; position: relative;top: 8%;">
+                    <div class="btn-group" style="position: relative;">
+                        <button type="button" class="btn btn-primary" id="createPatientBtn"><span class="glyphicon glyphicon-plus"></span> 添加</button>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">就诊卡号</div>
-                        <input class="form-control" type="text" id="queryId">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">身份证号</div>
-                        <input class="form-control" type="text" id="queryIdcard" />
-                    </div>
-                </div>
-
-                <button type="button" class="btn btn-default" id="queryPatientBtn">查询</button>
-
-            </form>
-        </div>
-        <div class="btn-toolbar" role="toolbar" style="background-color: #F7F7F7; height: 50px; position: relative;top: 5px;">
-            <div class="btn-group" style="position: relative; top: 18%;">
-                <button type="button" class="btn btn-primary" id="createPatientBtn"><span class="glyphicon glyphicon-plus"></span> 添加</button>
             </div>
+
+            <div class="col-sm-8">
+                <form class="form-inline" role="form" style="position: relative;top: 8%; left: 5px;">
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">患者姓名</div>
+                            <input class="form-control" type="text" id="queryName">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">就诊卡号</div>
+                            <input class="form-control" type="text" id="queryId">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">身份证号</div>
+                            <input class="form-control" type="text" id="queryIdcard" />
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-default" id="queryPatientBtn">查询</button>
+
+                </form>
+            </div>
+
         </div>
-        <div style="position: relative;top: 10px;">
+
+        <div style="position: relative;top:-35px;">
             <table class="table table-hover">
                 <thead>
                 <tr style="color: #B3B3B3;">

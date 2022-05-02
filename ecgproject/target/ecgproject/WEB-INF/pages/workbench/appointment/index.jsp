@@ -506,27 +506,32 @@
     </div>
 </div>
 
-<!--来个按钮组先-->
-<div id="btn-group" class="btn-group" data-toggle="buttons" style="position: relative; left: 10px; top: -10px;">
-    <label class="btn btn-default active">
-        <input type="radio" name="options" value="option1" checked="true">全部
-    </label>
-    <label class="btn btn-default">
-        <input type="radio" name="options" value="option3">未处理
-    </label>
-    <label class="btn btn-default">
-        <input type="radio" name="options" value="option4">处理中
-    </label>
-    <label class="btn btn-default">
-        <input type="radio" name="options" value="option2">已完成
-    </label>
+<div>
+    <div class="col-sm-1">
+        <div style="position: relative; top: -10px;">
+            <button type="button" class="btn btn-primary" id="createAppointmentBtn"><span class="glyphicon glyphicon-plus"></span> 添加</button>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <!--来个按钮组先-->
+        <div id="btn-group" class="btn-group" data-toggle="buttons" style="position: relative; top: -10px;">
+            <label class="btn btn-default active">
+                <input type="radio" name="options" value="option1" checked="true">全部
+            </label>
+            <label class="btn btn-default">
+                <input type="radio" name="options" value="option3">未处理
+            </label>
+            <label class="btn btn-default">
+                <input type="radio" name="options" value="option4">处理中
+            </label>
+            <label class="btn btn-default">
+                <input type="radio" name="options" value="option2">已完成
+            </label>
+        </div>
+    </div>
 </div>
 
-<div style="position: relative; left: 10px; top: 2px;">
-    <button type="button" class="btn btn-primary" id="createAppointmentBtn"><span class="glyphicon glyphicon-plus"></span> 创建</button>
-</div>
-
-<div style="position: relative; top: 2px; left: 0px; width: 100%; height: 100%;">
+<div style="position: relative; top: 20px; left: 0px; width: 100%; height: 100%;">
     <div style="width: 100%; position: absolute;top: 5px; left: 10px;">
         <div style="position: relative;top: 10px;">
             <table class="table table-hover">

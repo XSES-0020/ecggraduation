@@ -29,4 +29,19 @@ public class DoctorServiceImpl implements DoctorService {
     public List<Doctor> queryAllDoctors() {
         return doctorMapper.selectAllDoctors();
     }
+
+    @Override
+    public int insertDoctor(Doctor doctor) {
+        return doctorMapper.insert(doctor);
+    }
+
+    @Override
+    public Doctor selectDoctorById(String doctorId) {
+        return doctorMapper.selectByPrimaryKey(doctorId);
+    }
+
+    @Override
+    public int updateDoctor(Doctor doctor) {
+        return doctorMapper.updateByPrimaryKey(doctor);
+    }
 }

@@ -60,7 +60,7 @@
                                $("#msg").hide();
                                //登陆成功，跳转到业务主页面
                                if(window.confirm("创建成功，是否跳转至登录界面？")){
-                                   window.location.href="settings/qx/user/login.do";
+                                   window.location.href="settings/qx/user/logout.do";
                                }else{
                                    $("#registerForm").get(0).reset();
                                }
@@ -114,13 +114,35 @@
                     dataType:'json',
                     success:function (data) {
                         if(data.code=="1"){
-                            $("#msg").hide();
-                            //登陆成功，跳转到业务主页面
-                            if(window.confirm("创建成功，是否跳转至登录界面？")){
-                                window.location.href="settings/qx/user/login.do";
-                            }else{
-                                $("#registerForm").get(0).reset();
-                            }
+                            $.ajax({
+                                url:'settings/qx/user/login.do',
+                                data:{
+                                    loginAct:registerAct,
+                                    loginPwd:registerPwd
+                                },
+                                type:'post',
+                                dataType:'json',
+                                success:function (data){
+                                    if(data.code=="1"){
+                                        //登陆成功，跳转到业务主页面
+                                        var role = data.role;
+                                        if(role=="0"){
+                                            window.location.href="workbench/index.do";
+                                        }else{
+                                            window.location.href="workbench/indexAdmin.do";
+                                        }
+                                    }else{
+                                        //提示信息
+                                        $("#msg").text(data.message);
+                                    }
+                                },
+                                beforeSend:function () {
+                                    //true执行ajax，false不执行
+                                    //显示正在验证
+                                    $("#msg").text("正在验证中……");
+                                    return true;
+                                }
+                            });
                         }else{
                             //提示信息
                             $("#msg").text(data.message);

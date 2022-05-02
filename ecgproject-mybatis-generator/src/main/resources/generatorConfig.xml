@@ -49,7 +49,7 @@
             targetPackage     指定生成的model生成所在的包名
             targetProject     指定在该项目下所在的路径|指定生成到的工程名称
         -->
-        <javaModelGenerator targetPackage="com.ecgproject.workbench.domain"
+        <javaModelGenerator targetPackage="com.ecgproject.settings.domain"
                             targetProject="E:/IDEA/ecggraduation/ecgproject/src/main/java">
 
             <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
@@ -63,7 +63,7 @@
         </javaModelGenerator>
 
         <!--Mapper映射文件生成所在的目录 为每一个数据库的表生成对应的SqlMap文件 -->
-        <sqlMapGenerator targetPackage="com.ecgproject.workbench.mapper"
+        <sqlMapGenerator targetPackage="com.ecgproject.settings.mapper"
                          targetProject="E:/IDEA/ecggraduation/ecgproject/src/main/java">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
@@ -73,20 +73,20 @@
                 type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象
                 type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口
         -->
-        <javaClientGenerator targetPackage="com.ecgproject.workbench.mapper"
+        <javaClientGenerator targetPackage="com.ecgproject.settings.mapper"
                              targetProject="E:/IDEA/ecggraduation/ecgproject/src/main/java" type="XMLMAPPER">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
         <!--每次根据哪个表生成，只需要把哪个表打开就可以了，其他不用的表全部注释掉，不然会重复生成把之前写的代码覆盖-->
 
-        <!--user表 04/08
+        <!--user表 04/08-->
         <table tableName="user" domainObjectName="User"
                enableCountByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" enableUpdateByExample="false"
                selectByExampleQueryId="false">
         </table>
-        -->
+
 
         <!--patient表 04/13
         <table tableName="patient" domainObjectName="Patient"
@@ -144,12 +144,31 @@
         </table>
         -->
 
-        <!--ecg表 04/29-->
+        <!--ecg表 04/29
         <table tableName="ecg" domainObjectName="Ecg"
                enableCountByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" enableUpdateByExample="false"
                selectByExampleQueryId="false">
         </table>
+        -->
+
+        <!--machinestate表 05/01
+        <table tableName="machinestate" domainObjectName="Machinestate"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        -->
+
+        <!--appointmentstate表 05/01
+        <table tableName="appointmentstate" domainObjectName="Appointmentstate"
+               enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        -->
+
+
 
     </context>
 </generatorConfiguration>

@@ -85,6 +85,62 @@
                 });
             });
 
+            $("#editUserBtn").click(function () {
+                //收集参数
+                var userId = $.trim($("#edit-userId").val());
+                var userPhone = $.trim($("#edit-userPhone").val());
+                var userDescribe = $.trim($("#edit-userDescribe").val());
+
+                //发送请求
+                $.ajax({
+                    url:'settings/qx/user/editUser.do',
+                    data:{
+                        userId:userId,
+                        userPhone:userPhone,
+                        userDescribe:userDescribe
+                    },
+                    type:'post',
+                    dataType:'json',
+                    success:function (data) {
+                        if(data.code=="1"){
+                            //关闭模态窗口
+                            $("#myInformationModal").modal("hide");
+                        }else{
+                            //提示信息
+                            alert(data.message);
+                            //模态窗口不关
+                            $("#myInformationModal").modal("show");
+                        }
+                    }
+                });
+            });
+
+            //修改资料
+            $("#editUser").click(function () {
+                var userId = ${sessionScope.sessionUser.userId};
+                $.ajax({
+                    url:'workbench/user/queryUserById.do',
+                    data:{
+                        userId:userId
+                    },
+                    type:'post',
+                    dataType:'json',
+                    success:function (data) {
+                        $("#edit-userId").val(data.userId);
+                        $("#edit-userName").val(data.userName);
+                        $("#edit-userCreatetime").val(data.userCreatetime);
+                        if(data.userType=="0"){
+                            $("#edit-userType").val("普通用户");
+                        }else{
+                            $("#edit-userType").val("管理员");
+                        }
+                        $("#edit-userPhone").val(data.userPhone);
+                        $("#edit-userDescribe").val(data.userDescribe);
+
+                        $("#myInformationModal").modal("show");
+                    }
+                });
+            });
         });
 
     </script>
@@ -94,8 +150,8 @@
 
 
 <!-- 我的资料 -->
-<div class="modal fade" id="myInformation" role="dialog">
-    <div class="modal-dialog" role="document" style="width: 30%;">
+<div class="modal fade" id="myInformationModal" role="dialog">
+    <div class="modal-dialog" role="document" style="width: 85%;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">
@@ -104,17 +160,50 @@
                 <h4 class="modal-title">我的资料</h4>
             </div>
             <div class="modal-body">
-                <div style="position: relative; left: 40px;">
-                    姓名：<b>张三</b><br><br>
-                    登录帐号：<b>zhangsan</b><br><br>
-                    组织机构：<b>1005，市场部，二级部门</b><br><br>
-                    邮箱：<b>zhangsan@bjpowernode.com</b><br><br>
-                    失效时间：<b>2017-02-14 10:10:10</b><br><br>
-                    允许访问IP：<b>127.0.0.1,192.168.100.2</b>
-                </div>
+
+                <form id="editUserForm" class="form-horizontal" role="form">
+
+                    <div class="form-group">
+                        <label for="edit-userId" class="col-sm-2 control-label">账号<span style="font-size: 15px; color: red;">*</span></label>
+                        <div class="col-sm-10" style="width: 300px;">
+                            <input type="text" class="form-control" id="edit-userId" readonly>
+                        </div>
+
+                        <label for="edit-userType" class="col-sm-2 control-label">角色<span style="font-size: 15px; color: red;">*</span></label>
+                        <div class="col-sm-10" style="width: 300px;">
+                            <input type="text" class="form-control" id="edit-userType" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-userName" class="col-sm-2 control-label">姓名<span style="font-size: 15px; color: red;">*</span></label>
+                        <div class="col-sm-10" style="width: 300px;">
+                            <input type="text" class="form-control" id="edit-userName" readonly>
+                        </div>
+
+                        <label for="edit-userCreatetime" class="col-sm-2 control-label">创建时间<span style="font-size: 15px; color: red;">*</span></label>
+                        <div class="col-sm-10" style="width: 300px;">
+                            <input type="text" class="form-control" id="edit-userCreatetime" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-userPhone" class="col-sm-2 control-label">电话</label>
+                        <div class="col-sm-10" style="width: 300px;">
+                            <input type="text" class="form-control" id="edit-userPhone">
+                        </div>
+
+                        <label for="edit-userDescribe" class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-10" style="width: 300px;">
+                            <input type="text" class="form-control" id="edit-userDescribe">
+                        </div>
+                    </div>
+                </form>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="editUserBtn">保存</button>
             </div>
         </div>
     </div>
@@ -194,6 +283,7 @@
                 </a>
                 <ul class="dropdown-menu" style="left: -60px;width: 100px;">
                     <li><a href="javascript:void(0)" data-toggle="modal" data-target="#editPwdModal"><span class="glyphicon glyphicon-edit"></span> 修改密码</a></li>
+                    <li><a href="javascript:void(0)"><p id="editUser" style="height: 8px"><span class="glyphicon glyphicon-refresh"></span> 编辑资料</p></a></li>
                     <li><a href="javascript:void(0);" data-toggle="modal" data-target="#exitModal"><span class="glyphicon glyphicon-off"></span> 退出</a></li>
                 </ul>
             </li>
@@ -221,24 +311,8 @@
             </li>
             <li class="liClass"><a href="workbench/appointment/index.do" target="workareaFrame"><span class="glyphicon glyphicon-play-circle"></span> 预约管理</a></li>
             <li class="liClass"><a href="workbench/ecg/index.do" target="workareaFrame"><span class="glyphicon glyphicon-user"></span> ecg文件管理</a></li>
-            <li class="liClass">
-                <a href="#no2" class="collapsed" data-toggle="collapse"><span class="glyphicon glyphicon-stats"></span> 统计图表</a>
-                <ul id="no2" class="nav nav-pills nav-stacked collapse">
-                    <li class="liClass"><a href="workbench/chart/machine/index.do" target="workareaFrame">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right"></span> 机器图表</a></li>
-                    <li class="liClass"><a href="workbench/chart/appointment/index.do" target="workareaFrame">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right"></span> 预约图表</a></li>
-                    <li class="liClass"><a href="chart/customerAndContacts/index.html" target="workareaFrame">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right"></span> 客户和联系人统计图表</a></li>
-                    <li class="liClass"><a href="chart/transaction/index.html" target="workareaFrame">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right"></span> 交易统计图表</a></li>
-                </ul>
-            </li>
-            <li class="liClass"><a href="contacts/index.html" target="workareaFrame"><span class="glyphicon glyphicon-earphone"></span> 联系人</a></li>
-            <li class="liClass"><a href="transaction/index.html" target="workareaFrame"><span class="glyphicon glyphicon-usd"></span> 交易（商机）</a></li>
-            <li class="liClass"><a href="visit/index.html" target="workareaFrame"><span class="glyphicon glyphicon-phone-alt"></span> 售后回访</a></li>
-            <li class="liClass"><a href="javascript:void(0);" target="workareaFrame"><span class="glyphicon glyphicon-file"></span> 报表</a></li>
-            <li class="liClass"><a href="javascript:void(0);" target="workareaFrame"><span class="glyphicon glyphicon-shopping-cart"></span> 销售订单</a></li>
-            <li class="liClass"><a href="javascript:void(0);" target="workareaFrame"><span class="glyphicon glyphicon-send"></span> 发货单</a></li>
-            <li class="liClass"><a href="javascript:void(0);" target="workareaFrame"><span class="glyphicon glyphicon-earphone"></span> 跟进</a></li>
-            <li class="liClass"><a href="javascript:void(0);" target="workareaFrame"><span class="glyphicon glyphicon-leaf"></span> 产品</a></li>
-            <li class="liClass"><a href="javascript:void(0);" target="workareaFrame"><span class="glyphicon glyphicon-usd"></span> 报价</a></li>
+            <li class="liClass"><a href="workbench/chart/machine/index.do" target="workareaFrame"><span class="glyphicon glyphicon-indent-left"></span> 可视化统计</a></li>
+
         </ul>
 
         <!-- 分割线 -->

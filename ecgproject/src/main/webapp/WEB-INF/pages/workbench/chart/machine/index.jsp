@@ -108,7 +108,59 @@
                 }
             });
 
+            $.ajax({
+                url:'workbench/chart/appointment/queryCountOfAppointmentGroupByState.do',
+                type:'post',
+                dataType:'json',
+                success:function (data) {
+                    //调用工具函数，显示图
+                    var myChart3 = echarts.init(document.getElementById('chart3'));
 
+                    var option3 = {
+                        title:{
+                            text:'预约状态分布图',
+                            subtext: '各个状态预约数的占比'
+                        },
+                        tooltip: {
+                            trigger: 'item'
+                        },
+                        legend: {
+                            top: '5%',
+                            left: 'center'
+                        },
+                        series: [
+                            {
+                                name: '预约状态分布图',
+                                type: 'pie',
+                                radius: ['40%', '70%'],
+                                avoidLabelOverlap: false,
+                                itemStyle: {
+                                    borderRadius: 10,
+                                    borderColor: '#fff',
+                                    borderWidth: 2
+                                },
+                                label: {
+                                    show: false,
+                                    position: 'center'
+                                },
+                                emphasis: {
+                                    label: {
+                                        show: true,
+                                        fontSize: '40',
+                                        fontWeight: 'bold'
+                                    }
+                                },
+                                labelLine: {
+                                    show: false
+                                },
+                                data:data
+                            }
+                        ]
+                    };
+
+                    myChart3.setOption(option3);
+                }
+            });
         });
     </script>
 </head>
@@ -116,7 +168,12 @@
 
     <div>
         <div class="col-sm-6" id="chart1" style="top: 5%;width: 50%;height:50% "></div>
-        <div class="col-sm-6" id="chart2" style="top: 5%;width: 50%;height:50% "></div>
+        <div class="col-sm-6" id="chart3" style="top: 5%;width: 50%;height:50% "></div>
+
+    </div>
+
+    <div>
+        <div class="col-sm-6" id="chart2" style="top: 5%;width: 50%;height:50%;left:25% "></div>
     </div>
 
 </body>

@@ -34,4 +34,30 @@ public class UserServiceImpl implements UserService {
     public int updateUserPwdById(Map<String, Object> map) {
         return userMapper.updateUserPwdById(map);
     }
+
+    @Override
+    public List<User> queryUserByConditionForPage(Map<String, Object> map) {
+        return userMapper.selectUserByConditionForPage(map);
+    }
+
+    @Override
+    public int queryCountOfUserByCondition(Map<String, Object> map) {
+        return userMapper.selectCountOfUserByCondition(map);
+    }
+
+    @Override
+    public int deleteUserById(String userId) {
+        return userMapper.deleteByPrimaryKey(userId);
+    }
+
+    @Override
+    public int updateUserById(Map<String, Object> map) {
+        return userMapper.updateUserById(map);
+    }
+
+
+    @Override
+    public User queryUserById(String userId) {
+        return userMapper.selectByPrimaryKey(userId);
+    }
 }

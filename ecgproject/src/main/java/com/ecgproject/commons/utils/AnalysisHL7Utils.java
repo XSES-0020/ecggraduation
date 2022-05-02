@@ -20,11 +20,17 @@ public class AnalysisHL7Utils {
             SAXReader saxReader = new SAXReader();
             //读取指定的xml文件之后返回一个Document对象，这个对象代表了整个XML文档，用于各种Dom运算。执照XML文件头所定义的编码来转换。
             Document document = saxReader.read(ecgUrl);
-            System.out.println(ecgUrl);
+            //System.out.println(ecgUrl);
 
             //获取根节点：根节点是xml分析的开始，任何xml分析工作都需要从根开始
             Element rootElement = document.getRootElement();
             System.out.println("根节点的名字是:" + rootElement.getName());
+            if(rootElement.getName()!="AnnotatedECG"){
+                map.put("type","0");
+            }else{
+                map.put("type","1");
+            }
+
 
             //获取根节点下 数据元素componet节点
             Element memberCom = rootElement.element("component");

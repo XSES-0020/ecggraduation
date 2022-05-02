@@ -56,6 +56,10 @@
                    return;
                }
                var patientId = $("#import-patientId").val();
+               if(patientId==""){
+                   alert("患者就诊卡号不能为空");
+                   return;
+               }
 
                var formData = new FormData();
                formData.append("ecgFile",ecgFile);
@@ -146,7 +150,7 @@
                 success: function (data) {
                     var htmlStr = "";
                     $.each(data.ecgList, function (index, obj) {
-                        htmlStr += "<tr class=\"active\">";
+                        htmlStr += "<tr class=\"ecg\">";
                         htmlStr += "<td>" + obj.ecgId + "</td>";
                         htmlStr += "<td>" + obj.ecgUploadtime + "</td>";
                         htmlStr += "<td>" + obj.ecgUploader + "</td>";
@@ -230,9 +234,9 @@
                     <div style="position: relative;top: 100px; left: 50px; width:20%">
                         所属的患者就诊卡号：
                     </div>
-                    <div style="position: relative;top:40px; left: 50px;width: 20%">
+                    <div style="position: relative;top:100px; left: 50px;width: 20%">
                         <select class="selectpicker" id="import-patientId" data-live-search="true">
-                            <option value=''>请选择</option>
+                            <option value="">请选择</option>
                             <c:forEach items="${patientList}" var="p">
                                 <option value="${p.patientId}">${p.patientId}</option>
                             </c:forEach>
@@ -266,37 +270,40 @@
             <h3>ECG文件列表</h3>
         </div>
     </div>
-
-
 </div>
 
-<div style="position: relative; top: -20px; left: 0px; width: 100%; height: 100%;">
-    <div style="width: 100%; position: absolute;top: 5px; left: 10px;">
-        <div class="btn-toolbar" role="toolbar" style="height: 80px;">
-            <!--查询表单-->
-            <form class="form-inline" role="form" style="position: relative;top: 8%; left: 5px;">
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon">就诊卡号</div>
-                        <input class="form-control" type="text" id="patientId">
-                    </div>
-                </div>
-
-                <button type="button" class="btn btn-default" id="queryEcgBtn">查询</button>
-
-            </form>
-        </div>
-
+<div class="btn-toolbar" role="toolbar">
+    <div class="col-sm-1">
         <!--功能按钮组-->
-        <div class="btn-toolbar" role="toolbar" style="background-color: #F7F7F7; height: 50px; position: relative;top: 5px;">
-            <div class="btn-group" style="position: relative; top: 18%;">
+        <div class="btn-toolbar" role="toolbar" style="position: relative;top:-10px;">
+            <div class="btn-group" style="position: relative;">
                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#importEcgModal" ><span class="glyphicon glyphicon-import"></span> 导入</button>
             </div>
         </div>
+    </div>
 
+    <div class="col-sm-11">
+        <!--查询表单-->
+        <form class="form-inline" role="form" style="position: relative;top:-10px; left: -10px;">
+
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-addon">就诊卡号</div>
+                    <input class="form-control" type="text" id="patientId">
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-default" id="queryEcgBtn">查询</button>
+
+        </form>
+    </div>
+
+</div>
+
+<div style="position: relative; top: -10px; width: 100%; height: 100%;">
+    <div style="width: 100%; position: absolute;left: 10px;">
         <!--显示部分-->
-        <div style="position: relative;top: 10px;">
+        <div style="position: relative;">
             <table class="table table-hover">
                 <thead>
                 <tr style="color: #B3B3B3;">
@@ -304,7 +311,7 @@
                     <td style="width:20%">文件编号</td>
                     <td style="width:20%">上传时间</td>
                     <td style="width:20%">上传人</td>
-                    <td style="width:20%">所属患者</td>
+                    <td style="width:20%">所属患者编号</td>
                     <td style="width:20%">操作</td>
                 </tr>
                 </thead>

@@ -127,12 +127,12 @@
     select e.ecg_id as ecg_id,e.ecg_url as ecg_url,e.ecg_uploadtime as ecg_uploadtime,
     u.user_name as ecg_uploader,e.ecg_patient as ecg_patient
     from ecg e
+    join user u on e.ecg_uploader=u.user_id
     <where>
       <if test="patientId!=null and patientId!=''">
-        ecg_patient like "%"#{patientId}"%"
+        e.ecg_patient like "%"#{patientId}"%"
       </if>
     </where>
-    join user u on e.ecg_uploader=u.user_id
     order by e.ecg_uploadtime desc
     limit #{beginNo},#{pageSize}
   </select>

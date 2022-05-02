@@ -92,7 +92,7 @@
                             if(role=="0"){
                                 window.location.href="workbench/index.do";
                             }else{
-                                $("#msg").text("跳到管理员界面");
+                                window.location.href="workbench/indexAdmin.do";
                             }
 
                         }else{
